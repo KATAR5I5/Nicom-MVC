@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: IntelliJ IDEA
+Built-By: User
+Build-Jdk: 17.0.3
+Implementation-Title: FirstSecurityApp
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: ru.markelov.security
+Main-Class: ${start-class}
+
