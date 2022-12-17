@@ -23,18 +23,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SecurityConfig(EmployeeDetailService employeeDetailService) {
         this.employeeDetailService = employeeDetailService;
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/auth/login", "/auth/registration","/error").permitAll()
-                .antMatchers("/css/login.css").permitAll()
-                .anyRequest().hasAnyRole("USER","ADMIN")
+                .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
+                .antMatchers("/resources/**","/css/**","/").permitAll()
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/", true)
                 .failureUrl("/auth/login?error")
                 .and()
                 .logout()
@@ -48,12 +49,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        authenticationManagerBuilder.authenticationProvider(authProvider);
         authenticationManagerBuilder.userDetailsService(employeeDetailService);
     }
+
     @Override
     public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(
-                        "/css/**", "/fonts/**",
-                        "/images/**");
+        web.ignoring().antMatchers(
+                "/resources/**",
+                "/css/**",
+//                "/fonts/**",
+//                "/images/**",
+                "/auth/login.html"
+        );
     }
 
     @Bean

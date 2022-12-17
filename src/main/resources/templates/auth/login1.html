@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
+<head>
+<!--<link rel="stylesheet" th:href="@{../../static/login.css}">-->
+    <link media="all" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}" type="text/css"/>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+</head>
+<body>
+<!--<form class="decor">-->
+<!--    <div class="form-left-decoration"></div>-->
+<!--    <div class="form-right-decoration"></div>-->
+<!--    <div class="circle"></div>-->
+<!--    <div class="form-inner">-->
+<!--        <h3>Написать нам</h3>-->
+<!--        <input type="text" placeholder="Username">-->
+<!--        <input type="email" placeholder="Email">-->
+<!--        <textarea placeholder="Сообщение..." rows="3"></textarea>-->
+<!--        <input type="submit" value="Отправить">-->
+<!--    </div>-->
+<!--</form>-->
+
+    <form name="f" method="post" action="/process_login">
+        <h3 class="text-center">Login</h3>
+        <div class="form-group">
+            <input class="form-control item" type="text" name="username" maxlength="15"
+                    id="username" placeholder="№ Мастера" required>
+        </div>
+        <br>
+        <div class="form-group">
+            <input class="form-control item" type="password" name="password"  id="password"
+                   placeholder="Пароль" required>
+        </div>
+<br>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block create-account" type="submit">Вход в аккаунт</button>
+        </div>
+        <p>
+            <a th:href="@{/auth/registration}">
+                <button type="button">Регистрация</button>
+            </a>
+            <!--        <a>&emsp;</a>-->
+            <!--        <input type="submit" value="Войти"/>-->
+        </p>
+
+        <div th:if="${param.error}" style="color :red">
+            Неправильное имя или пароль
+        </div>
+    </form>
+
+
+
+</body>
+</html>
+
+<!--    <label for="username"> Введите № Мастера: </label>-->
+<!--    <input type="text" name="username" id="username"/>-->
+
+
+<!--    <label for="password"> Введите пароль </label>-->
+<!--    <input type="password" name="password" id="password"/>-->
+
+
+<!--</form>-->

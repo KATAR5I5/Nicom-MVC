@@ -1,92 +1,55 @@
 html {
-    box-sizing: border-box;
+    background-color:#214c84;
+    background-blend-mode:overlay;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-image:url(../../assets/img/image4.jpg);
+    background-repeat:no-repeat;
+    background-size:cover;
+    height:100%;
 }
+
 body {
-    background: #f69a73;
+    background-color:transparent;
 }
-.decor {
-    position: relative;
-    max-width: 400px;
-    margin: 50px auto 0;
-    background: white;
-    border-radius: 30px;
+
+.registration-cssave{
+    padding:50px 0;
 }
-.form-left-decoration, .form-right-decoration {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 20px;
-    background: #f69a73;
-    border-radius: 20px;
+
+.registration-cssave form {
+    max-width:800px;
+    padding:50px 70px;
+    border-radius:10px;
+    box-shadow:4px 4px 15px rgba(0, 0, 0, 0.2);
+    background-color:#fff;
 }
-.form-left-decoration {
-    bottom: 60px;
-    left: -30px;
+
+.registration-cssave form h3 {
+    font-weight:bold;
+    margin-bottom:30px;
 }
-.form-right-decoration {
-    top: 60px;
-    right: -30px;
+
+.registration-cssave .item {
+    border-radius:10px;
+    margin-bottom:25px;
+    padding:10px 20px;
 }
-.form-left-decoration:before, .form-left-decoration:after, .form-right-decoration:before, .form-right-decoration:after {
-    content: "";
-    position: absolute;
-    width: 50px;
-    height: 20px;
-    border-radius: 30px;
-    background: white;
+
+.registration-cssave .create-account {
+    border-radius:30px;
+    padding:10px 20px;
+    font-size:18px;
+    font-weight:bold;
+    background-color:#3f93ff;
+    border:none;
+    color:white;
+    margin-top:20px;
 }
-.form-left-decoration:before {
-    top: -20px;
-}
-.form-left-decoration:after {
-    top: 20px;
-    left: 10px;
-}
-.form-right-decoration:before {
-    top: -20px;
-    right: 0;
-}
-.form-right-decoration:after {
-    top: 20px;
-    right: 10px;
-}
-.circle {
-    position: absolute;
-    bottom: 80px;
-    left: -55px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: white;
-}
-.form-inner {
-    padding: 50px;
-}
-.form-inner input, .form-inner textarea {
-    display: block;
-    width: 100%;
-    padding: 0 20px;
-    margin-bottom: 10px;
-    background: #E9EFF6;
-    line-height: 40px;
-    border-width: 0;
-    border-radius: 20px;
-    font-family: 'Roboto', sans-serif;
-}
-.form-inner input[type="submit"] {
-    margin-top: 30px;
-    background: #f69a73;
-    border-bottom: 4px solid #d87d56;
-    color: white;
-    font-size: 14px;
-}
-.form-inner textarea {
-    resize: none;
-}
-.form-inner h3 {
-    margin-top: 0;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    color: #707981;
+
+@media (max-width: 576px) {
+    .registration-cssave form {
+        padding:50px 20px;
+    }
 }
