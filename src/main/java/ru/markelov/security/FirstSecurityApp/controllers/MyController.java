@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -74,21 +76,27 @@ public class MyController {
         return "redirect:/";
     }
 
-    @RequestMapping("/whatsAppWebSend")
+    @PostMapping(value = "/whatsAppWebSend", produces = "text/plain;charset=UTF-8")
     public String sendWhatsAppWebMessage(@RequestParam("clientDbID") int id, @RequestParam("clientTel") Long tel, Model model) {
-//        System.out.println(id);
-//        System.out.println(tel);
-        ClientsDB clientsDB = clientService.getClientDB(id);
-        String uriWhatsAppSend = "https://web.whatsapp.com/send?phone=" + tel + "&text=" + clientsDB.getMassage();
-        clientService.updateStatusAndDateMessage(clientsDB);
 
-        return "redirect:" + uriWhatsAppSend;
+        ClientsDB clientsDB = clientService.getClientDB(id);
+//        URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8);
+
+//        urlWhatsAppWeb.append(tel).append("&text=").append(clientsDB.getMassage());
+        StringBuilder urlWhatsAppWebSend = new StringBuilder("https://web.whatsapp.com/send?phone=");
+        urlWhatsAppWebSend.append(tel).append("&text=").append(URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8));
+
+        clientService.updateStatusAndDateMessage(clientsDB);
+        return "redirect:" + urlWhatsAppWebSend;
     }
 
     @RequestMapping("/whatsAppApplicationSend")
     public String sendWhatsAppApplicationMessage(@RequestParam("clientDbID") int id, @RequestParam("clientTel") Long tel, Model model) {
         ClientsDB clientsDB = clientService.getClientDB(id);
-        String uriWhatsAppSend = "https://api.whatsapp.com/send?phone=" + tel + "&text=" + clientsDB.getMassage();
+        StringBuilder uriWhatsAppSend = new StringBuilder("https://api.whatsapp.com/send?phone=");
+        uriWhatsAppSend.append(tel).append("&text=").append(URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8));
+
+//        String uriWhatsAppSend = "https://api.whatsapp.com/send?phone=" + tel + "&text=" + clientsDB.getMassage();
         clientService.updateStatusAndDateMessage(clientsDB);
         return "redirect:" + uriWhatsAppSend;
     }

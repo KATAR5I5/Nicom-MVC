@@ -8,8 +8,6 @@ import ru.markelov.security.FirstSecurityApp.models.Employee;
 import ru.markelov.security.FirstSecurityApp.services.RegistrationService;
 import ru.markelov.security.FirstSecurityApp.util.EmployeeValidator;
 
-import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
