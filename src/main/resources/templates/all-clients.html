@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
-<meta charset="windows-1251">
-<meta language="java">
+<!--<link media="all" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}" type="text/css"/>-->
+<meta charset="UTF-8">
 <head>
     <title>Доставленные</title>
 </head>
 <body>
+
 <br>
 <h2>Устройства в отделениях С РЕМОНТОМ</h2>
+<br>
+<a th:href="@{/logout}">
+    <button type="button">Logout</button>
+</a>
+<br>
 <br>
 </form>
 <button th:onclick="|window.location.href='@{/clearClients}'|">Очистить базу</button>
@@ -83,57 +89,7 @@
             <button th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ</button>
         </td>
 
-        <!--            <button method="post" target="_blank"-->
-        <!--                    th:onclick="|window.location.href='@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}'|">-->
-        <!--                WhatsAppWEB-->
-        <!--            </button>-->
-        <!--            <div>-->
-        <!--                <div style="float: left;">-->
-        <!--                    <form th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"-->
-        <!--                          method="post" target="_blank">-->
-        <!--                        <button type="submit">WhatsAppWEB</button>-->
-        <!--                    </form>-->
-        <!--                </div>-->
-        <!--                <a>&emsp;</a>-->
-        <!--                <div style="float: right;">-->
-        <!--                    <form th:if="${client.phoneNumberTwo}"-->
-        <!--                          th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"-->
-        <!--                          method="post" target="_blank">-->
-        <!--                        <button type="submit">WhatsAppWEBTel-2</button>-->
 
-        <!--                    </form>-->
-        <!--                </div>-->
-
-        <!--            </div>-->
-        <!--            <button method="post" target="_blank"-->
-        <!--                    th:onclick="|window.location.href='@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}'|">-->
-        <!--                WhatsAppWEBTel-2-->
-        <!--            </button>-->
-
-
-        <!--        <br>-->
-        <!--    </tr>-->
-        <!--    <c:url var="whatsAppApplicationButton" value="/whatsAppApplicationSend">-->
-        <!--        <c:param name="clientDbID" value="${клиент.id}"/>-->
-        <!--        <c:param name="clientTel" value="${клиент.phoneNumberOne}"/>-->
-        <!--    </c:url>-->
-        <!--    <input type="button" value="WhatsApp"-->
-        <!--           onclick="window.location.href = '${whatsAppApplicationButton}'"/>-->
-        <!--    <c:if test="${клиент.phoneNumberTwo != null}">-->
-        <!--        <c:url var="whatsAppApplicationButton2" value="/whatsAppApplicationSend">-->
-        <!--            <c:param name="clientDbID" value="${клиент.id}"/>-->
-        <!--            <c:param name="clientTel" value="${клиент.phoneNumberTwo}"/>-->
-        <!--        </c:url>-->
-        <!--        <input type="button" value="WhatsAppTel-2"-->
-        <!--               onclick="window.location.href = '${whatsAppApplicationButton2}'"/>-->
-        <!--    </c:if>-->
-
-
-        <!--    <input type="button" value="Редактировать"-->
-        <!--           onclick="window.location.href = ''"/>-->
-
-
-        <!--        </c:forEach>-->
 </table>
 <br>
 <h2>Устройства в отделениях БЕЗ РЕМОНТА.</h2>
@@ -184,5 +140,6 @@
 </table>
 <br><br>
 <br><br>
+</div>
 </body>
 </html>

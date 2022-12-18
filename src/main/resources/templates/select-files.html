@@ -1,45 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
+<link media="all" rel="stylesheet" href="/static/css/login.css"
+      th:href="@{/css/login.css}" type="text/css"/>
+<meta charset="UTF-8">
+
 <head>
-    <meta charset="UTF-8">
     <title>Загрузка файлов</title>
 </head>
 <body>
-<br><br>
-<h2>Укажите путь к файлам для формирования сообщений</h2>
-<br>
-<a th:href="@{/logout}">
-    <button type="button">Logout</button>
-</a>
-<p> Загрузите EXEL файл в формате .XLSX из отчета 1С - 'Техника в отделениях'</p>
-<!--<form method="POST" action="@{/uploadFile1C}" enctype="multipart/form-data">-->
-<!--    <input type="file" name="file">-->
-<!--    <input type="submit" value="Загрузить 1С">-->
+<div class="registration-cssave">
+    <a th:href="@{/logout}">
+        <button class="btn btn-primary btn-block logout-account" type="button">Logout</button>
+    </a>
+    <br>
+    <br>
 
-    <form method="POST"  th:action="@{/uploadFile1C}" enctype="multipart/form-data">
-        <input type="file" name="file">
-    <button type="submit">Загрузить 1С</button>
-</form>
-<a th:text="${file1C}"></a>
-<br>
-<p> Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</p>
-    <form method="POST"  th:action="@{/uploadFileDep}" enctype="multipart/form-data">
-    <input type="file" name="file2">
-        <button type="submit">Загрузить Отделения</button>
-</form>
-<a th:text="${dep}"></a>
-<br>
-<br>
-<div>
-    <a th:href="@{/generateReport1}">
-        <button type="button">Сформировать</button>
+    <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
+        <h2 class="text-center">Укажите путь к файлам для формирования сообщений</h2>
+        <h3> Загрузите EXEL файл в формате .XLSX из отчета 1С - 'Техника в отделениях'</h3>
+        <label class="btn btn-primary btn-block logout-account">
+            <input type="file" name="file">
+        </label>
+        <button class="btn btn-primary btn-block create-account" type="submit">Загрузить 1С</button>
+    </form>
+    <a th:text="${file1C}"></a>
+    <br>
+    <form method="POST" th:action="@{/uploadFileDep}" enctype="multipart/form-data">
+        <p> Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</p>
+        <label class="btn btn-primary btn-block logout-account">
+            <input type="file" name="file2">
+        </label>
+        <button class="btn btn-primary btn-block create-account" type="submit">Загрузить Отделения</button>
+    </form>
+    <a th:text="${dep}"></a>
+    <br>
+    <br>
+    <div>
+        <a th:href="@{/generateReport1}">
+            <button class="btn btn-primary btn-block registration-account" type="button">Сформировать</button>
 
-        <span><a>&emsp;</a>
+            <span><a>&emsp;</a>
     <a th:href="@{/currentDB}">
-        <button type="button">Открыть действующую</button>
+        <button class="btn btn-primary btn-block create-account" type="button">Открыть действующую</button>
     </a>
     </span>
-    </a>
+        </a>
+    </div>
 </div>
 </body>
 </html>

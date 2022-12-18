@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
 <head>
-<!--<link rel="stylesheet" th:href="@{../../static/login.css}">-->
+    <!--<link rel="stylesheet" th:href="@{../../static/login.css}">-->
     <link media="all" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}" type="text/css"/>
     <meta charset="UTF-8">
     <title>Login page</title>
@@ -20,34 +20,33 @@
 <!--    </div>-->
 <!--</form>-->
 
-    <form name="f" method="post" action="/process_login">
-        <h3 class="text-center">Login</h3>
-        <div class="form-group">
-            <input class="form-control item" type="text" name="username" maxlength="15"
-                    id="username" placeholder="№ Мастера" required>
-        </div>
-        <br>
-        <div class="form-group">
-            <input class="form-control item" type="password" name="password"  id="password"
-                   placeholder="Пароль" required>
-        </div>
-<br>
-        <div class="form-group">
-            <button class="btn btn-primary btn-block create-account" type="submit">Вход в аккаунт</button>
-        </div>
-        <p>
-            <a th:href="@{/auth/registration}">
-                <button type="button">Регистрация</button>
-            </a>
-            <!--        <a>&emsp;</a>-->
-            <!--        <input type="submit" value="Войти"/>-->
-        </p>
+<form name="f" method="post" action="/process_login">
+    <h3 class="text-center">Login</h3>
+    <div class="form-group">
+        <input class="form-control item" type="text" name="username" maxlength="15"
+               id="username" placeholder="№ Мастера" required>
+    </div>
+    <br>
+    <div class="form-group">
+        <input class="form-control item" type="password" name="password" id="password"
+               placeholder="Пароль" required>
+    </div>
+    <br>
+    <div class="form-group">
+        <button class="btn btn-primary btn-block create-account" type="submit">Вход в аккаунт</button>
+    </div>
+    <p>
+        <a th:href="@{/auth/registration}">
+            <button type="button">Регистрация</button>
+        </a>
+        <!--        <a>&emsp;</a>-->
+        <!--        <input type="submit" value="Войти"/>-->
+    </p>
 
-        <div th:if="${param.error}" style="color :red">
-            Неправильное имя или пароль
-        </div>
-    </form>
-
+    <div th:if="${param.error}" style="color :red">
+        Неправильное имя или пароль
+    </div>
+</form>
 
 
 </body>
