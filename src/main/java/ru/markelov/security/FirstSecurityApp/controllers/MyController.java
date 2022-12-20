@@ -22,13 +22,15 @@ public class MyController {
 
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        model.addAttribute("thisEmp", emp);
         return "select-files";
     }
 
     @RequestMapping("/generateReport1")
     public String showAllClients() {
-    Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
         /*
         - создание объектов
         - и запись их в базу
@@ -51,6 +53,8 @@ public class MyController {
     /*
      - Получение списков из базы
      */
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        model.addAttribute("thisEmp", emp);
         List<ClientsDB> clientsWithRepair = clientService.getClientsWithRepair();
         List<ClientsDB> clientsWithOutRepair = clientService.getClientsWithOutRepair();
         model.addAttribute("clientsWithRepair", clientsWithRepair);
@@ -90,7 +94,7 @@ public class MyController {
         return "redirect:" + urlWhatsAppWebSend;
     }
 
-    @RequestMapping("/whatsAppApplicationSend")
+    @PostMapping("/whatsAppApplicationSend")
     public String sendWhatsAppApplicationMessage(@RequestParam("clientDbID") int id, @RequestParam("clientTel") Long tel, Model model) {
         ClientsDB clientsDB = clientService.getClientDB(id);
         StringBuilder uriWhatsAppSend = new StringBuilder("https://api.whatsapp.com/send?phone=");

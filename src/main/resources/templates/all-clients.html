@@ -1,97 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
-<!--<link media="all" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}" type="text/css"/>-->
+<link media="all" rel="stylesheet" href="/static/css/all-clients.css" th:href="@{/css/all-clients.css}"
+      type="text/css"/>
 <meta charset="UTF-8">
 <head>
     <title>Доставленные</title>
 </head>
 <body>
 
-<br>
-<h2>Устройства в отделениях С РЕМОНТОМ</h2>
-<br>
-<a th:href="@{/logout}">
-    <button type="button">Logout</button>
-</a>
-<br>
-<br>
-</form>
-<button th:onclick="|window.location.href='@{/clearClients}'|">Очистить базу</button>
-<a>&emsp;</a>
-<a th:href="@{/}">
-    <button type="button">Назад, к выбору файла</button>
-</a>
-<br>
-<br>
-<!--Стиль таблицы-->
-<style>
-    table,
-    th,
-    td {
-        padding: 10px;
-        border: 1px solid black;
-        border-collapse: collapse;
-    }
-</style>
+<div  class="registration-cssave">
+        <div>
+            <a th:href="@{/logout}">
+                <button class="btn btn-primary btn-block logout-account" type="button">Выход Мастер <b
+                        th:text="${thisEmp.getUsername()}"/></button>
+            </a>
+        </div>
+        <div>
+            <button class="btn btn-primary btn-block registration-account"
+                    th:onclick="|window.location.href='@{/clearClients}'|">Очистить базу
+            </button>
+            <a>&emsp;</a>
+            <a th:href="@{/}">
+                <button class="btn btn-primary btn-block create-account" type="button">Назад, к выбору файла</button>
+            </a>
+        </div>
+<div>
+    <!--    начало Таблицы Устройства в отделениях С РЕМОНТОМ-->
+        <h2 class="text-center">Устройства в отделениях С РЕМОНТОМ </h2>
+  </div>
+<div>
+    <br>
+    <!--Шапка таблицы-->
+    <table>
+        <tr>
+            <th>Отделение</th>
+            <th>№ квитанции</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Устройство</th>
+            <th>Сумма к оплате</th>
+            <th> Телефон 2</th>
+            <th>Телефон 1</th>
+            <th>Сообщение</th>
+            <th>Дата отправления сообщения</th>
+            <th>Статус</th>
+            <th>Удалить из списка</th>
+        </tr>
 
-<!--Шапка таблицы-->
-<table>
-    <tr>
-        <th>Отделение</th>
-        <th>№ квитанции</th>
-        <th>Фамилия</th>
-        <th>Имя</th>
-        <th>Отчество</th>
-        <th>Устройство</th>
-        <th>Сумма к оплате</th>
-        <th> Телефон 2</th>
-        <th>Телефон 1</th>
-        <th>Сообщение</th>
-        <th>Дата отправления сообщения</th>
-        <th>Статус</th>
-    </tr>
+        <!--        Значения в таблице-->
+        <tr th:each="client : ${clientsWithRepair}">
+            <td th:text="${client.department}"/>
+            <td><span th:text="${client.ticketNumber}"/></td>
+            <td><span th:text="${client.firstName}"/></td>
+            <td><span th:text="${client.secondName}"/></td>
+            <td><span th:text="${client.thirdName}"/></td>
+            <td><span th:text="${client.device}"/></td>
+            <td><span th:text="${client.priceToRepair}"/></td>
+            <!--            Колонка телефон 2-->
+            <td><span th:text="${client.phoneNumberTwo}"/>
+                <form th:if="${client.phoneNumberTwo}"
+                      th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"
+                      method="post" target="_blank">
+                    <button class="btn btn-primary btn-block whatsappWeb-button" type="submit">WhatsAppWEB</button>
+                </form>
+                <form  th:if="${client.phoneNumberTwo}"
+                        th:action="@{/whatsAppApplicationSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"
+                      method="post" target="_blank">
+                    <button class="btn btn-primary btn-block whatsappAPP-button" type="submit">WhatsAPP</button>
+                </form>
 
-    <tr th:each="client : ${clientsWithRepair}">
+            </td>
+            <!--            Колонка телефон 1-->
+            <td><span th:text="${client.phoneNumberOne}"/>
+                <form th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
+                      method="post" target="_blank">
+                    <button class="btn btn-primary btn-block whatsappWeb-button" type="submit">WhatsAppWEB</button>
+                </form>
+                <form th:action="@{/whatsAppApplicationSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
+                      method="post" target="_blank">
+                    <button class="btn btn-primary btn-block whatsappAPP-button" type="submit">WhatsAPP</button>
+                </form>
+            </td>
+            <!--            Колонка сообщение-->
 
-        <td th:text="${client.department}"/>
-        <td><span th:text="${client.ticketNumber}"/></td>
-        <td><span th:text="${client.firstName}"/></td>
-        <td><span th:text="${client.secondName}"/></td>
-        <td><span th:text="${client.thirdName}"/></td>
-        <td><span th:text="${client.device}"/></td>
-        <td><span th:text="${client.priceToRepair}"/></td>
-        <td><span th:text="${client.phoneNumberTwo}"/>
-            <br>
-            <form th:if="${client.phoneNumberTwo}"
-                  th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"
-                  method="post" target="_blank">
-                <button type="submit">WhatsAppWEB</button>
-            </form>
-        </td>
-        <td><span th:text="${client.phoneNumberOne}"/>
-            <br>
-            <br>
-            <form th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
-                  method="post" target="_blank">
-                <button type="submit">WhatsAppWEB</button>
-            </form>
-            <br>
-            <form th:action="@{/whatsAppApplicationSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
-                  method="post" target="_blank">
-                <button type="submit">WhatsAPP</button>
-            </form>
+            <td><span th:text="${client.massage}"/></td>
+            <td><span th:text="${client.localDate}"/></td>
+            <td><span th:text="${client.statusMessage}"/></td>
 
-        </td>
-        <td><span th:text="${client.massage}"/>
-        <td><span th:text="${client.localDate}"/></td>
-        <td><span th:text="${client.statusMessage}"/></td>
-        <td>
-            <button th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ</button>
-        </td>
-
-
-</table>
+            <!--            Колонка удалить запись-->
+            <td>
+                <button class="btn btn-primary btn-block delete-button" th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ</button>
+            </td>
+        </tr>
+    </table>
+</div>
 <br>
+
 <h2>Устройства в отделениях БЕЗ РЕМОНТА.</h2>
 <br><br>
 <table>
@@ -108,6 +113,7 @@
         <th>Сообщение</th>
         <th>Дата отправления сообщения</th>
         <th>Статус</th>
+        <th>Удалить из списка</th>
     </tr>
     <tr th:each="client : ${clientsWithOutRepair}">
 
@@ -118,28 +124,40 @@
         <td><span th:text="${client.thirdName}"/></td>
         <td><span th:text="${client.device}"/></td>
         <td><span th:text="${client.priceToRepair}"/></td>
+        <!--            Колонка телефон 2-->
         <td><span th:text="${client.phoneNumberTwo}"/>
             <form th:if="${client.phoneNumberTwo}"
                   th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"
                   method="post" target="_blank">
-                <button type="submit">WhatsAppWEB</button>
+                <button class="btn btn-primary btn-block whatsappWeb-button" type="submit">WhatsAppWEB</button>
             </form>
+            <form  th:if="${client.phoneNumberTwo}"
+                   th:action="@{/whatsAppApplicationSend(clientDbID=${client.id},clientTel=${client.phoneNumberTwo})}"
+                   method="post" target="_blank">
+                <button class="btn btn-primary btn-block whatsappAPP-button" type="submit">WhatsAPP</button>
+            </form>
+
         </td>
+        <!--            Колонка телефон 1-->
         <td><span th:text="${client.phoneNumberOne}"/>
             <form th:action="@{/whatsAppWebSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
                   method="post" target="_blank">
-                <button type="submit">WhatsAppWEB</button>
+                <button class="btn btn-primary btn-block whatsappWeb-button" type="submit">WhatsAppWEB</button>
+            </form>
+            <form th:action="@{/whatsAppApplicationSend(clientDbID=${client.id},clientTel=${client.phoneNumberOne})}"
+                  method="post" target="_blank">
+                <button class="btn btn-primary btn-block whatsappAPP-button" type="submit">WhatsAPP</button>
             </form>
         </td>
+        <!--            Колонка сообщение-->
+
         <td><span th:text="${client.massage}"/>
         <td><span th:text="${client.localDate}"/></td>
         <td><span th:text="${client.statusMessage}"/></td>
         <td>
-            <button th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ</button>
+            <button class="btn btn-primary btn-block delete-button" th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ</button>
         </td>
 </table>
-<br><br>
-<br><br>
 </div>
 </body>
 </html>

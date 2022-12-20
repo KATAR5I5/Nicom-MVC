@@ -70,7 +70,7 @@ public class ClientServiceImpl implements ClientService {
         - вернуть путь нужного файла
         - удалить неактуальный фаил
          */
-        Path path1C = Path.of(emp.getPath()+"\\full.xlsx");
+        Path path1C = Path.of(emp.getPath() + "\\" + emp.getUsername() + "full.xlsx");
         return path1C;
     }
 

@@ -20,10 +20,10 @@ public class FileUploadController {
 
     @PostMapping("/uploadFile1C")
     public String uploadFile1C(@RequestParam("file") MultipartFile file, Model model) {// имена параметров (тут - "file") - из формы JSP.
-    Employee currentEmp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
-//        Path Path_1C = Paths.get("C:\\Users\\User\\IdeaProjects\\nicom-mvc\\src\\main\\load_files\\full.xlsx");
-        Path Path_1C = Paths.get(currentEmp.getPath() + "\\full.xlsx");
+        Employee currentEmp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        Path Path_1C = Paths.get(currentEmp.getPath() + "\\" + currentEmp.getUsername() + "full.xlsx");
         System.out.println(Path_1C);
+        System.out.println(Path_1C.toFile().getAbsolutePath());
         if (!file.isEmpty() && file.getOriginalFilename().endsWith("xlsx")) {
             try {
                 byte[] bytes = file.getBytes();
@@ -33,6 +33,7 @@ public class FileUploadController {
                 Files.write(Path_1C, bytes);
                 String s = "Загружено - " + file.getOriginalFilename();
                 model.addAttribute("file1C", s);
+                model.addAttribute("thisEmp",currentEmp);
 //                return "redirect:/uploadStatus";
                 return "select-files";
             } catch (Exception e) {
@@ -45,7 +46,7 @@ public class FileUploadController {
 
     @PostMapping("/uploadFileDep")
     public String uploadFileDep(@RequestParam("file2") MultipartFile file, Model model) {// имена параметров (тут - "file") - из формы JSP.
-    Employee currentEmp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        Employee currentEmp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
         Path newPathDep = Paths.get(currentEmp.getPathdep());
         if (!file.isEmpty() && file.getOriginalFilename().endsWith("xlsx")) {
             try {
@@ -56,6 +57,7 @@ public class FileUploadController {
                 Files.write(newPathDep, bytes);
                 String s = "Загружено - " + file.getOriginalFilename();
                 model.addAttribute("dep", s);
+                model.addAttribute("thisEmp",currentEmp);
                 return "select-files";
 
             } catch (Exception e) {

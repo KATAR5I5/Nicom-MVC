@@ -1,5 +1,6 @@
 package ru.markelov.security.FirstSecurityApp.models;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -12,8 +13,13 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty(message = "Имя не должно быть пустым")
-    @Size(min =  2, max = 50, message = "длин от 2 до 50 символов")
+//    @NotEmpty(message = "№ мастера не должен быть пустым")
+//    @Size(min=3, max=3, message = "Номер мастера 3х значный, 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
+//    @Column(name = "numberemployee")
+//    private String numberEmployee;
+
+    @Size(min = 3, max = 3, message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
+    @NotEmpty(message = "№ мастера не должен быть пустым")
     @Column(name = "username")
     private String username;
 
@@ -28,6 +34,39 @@ public class Employee {
 
     @Column(name = "pathdep")
     private String pathdep;
+
+    @Column(name = "employeename")
+    private String employeeName;
+
+    @Column(name = "speciality")
+    private String speciality;
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String numberEmployee) {
+        this.employeeName = numberEmployee;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Column(name = "department")
+    private String department;
 
     public String getPath() {
         return path;

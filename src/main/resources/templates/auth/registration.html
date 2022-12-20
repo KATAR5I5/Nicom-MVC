@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns: th="http://www.thymeleaf.org">
 <link media="all" rel="stylesheet" href="/static/css/login.css" th:href="@{/css/login.css}" type="text/css"/>
-<meta charset="UTF-8">
 <head>
+    <meta charset="UTF-8">
     <title>Registration</title>
 </head>
 <body>
@@ -15,16 +15,43 @@
     <br/>
     <br/>
     <form th:method="POST" th:action="@{/auth/registration}" th:object="${employee}">
+        <!--                    Введите № мастера:-->
         <div class="form-group">
             <label for="username">Введите № мастера: </label>
-            <input class="form-control item" type="text" th:field="*{username}" id="username"/>
-            <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
-                Username используется
-            </div>
+            <input class="form-control item" type="text" th:field="*{username}" id="username"
+                   placeholder="3и-цифры" size="5" required/>
+            <br>
+            <h3 style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">
+            </h3>
         </div>
+        <!--                    Отделение сотрудника:-->
+        <div>
+            <label>Отделение: </label>
+            <select th:field="${employee.department}" class="form-control item">
+                <option th:value="СТ12" selected>СТ12 - Студеный пр-д</option>
+                <option th:value="М12">М12 - Мурановская ул</option>
+                <option th:value="Л66">Л66 - Ленинградский пр-т</option>
+                <!--            <input class="form-control item" type="select" id="department"-->
+                <!--                   value="СТ12 Студеный пр-д" required/>-->
+            </select>
+        </div>
+        <!--                    Имя сотрудника:-->
+        <div class="form-group">
+            <label>Имя сотрудника: </label>
+            <input class="form-control item" type="text" th:field="*{employeeName}"
+                   placeholder="Алексей" required/>
+        </div>
+        <!--                           Основное направление -->
+
+        <div class="form-group">
+            <label for="speciality">Основное направление:</label>
+            <input class="form-control item" type="text" th:field="*{speciality}" id="speciality"
+                   placeholder="Кофе машины"/>
+        </div>
+        <!--                            Введите пароль:-->
         <div>
             <label for="password">Введите пароль: </label>
-            <input class="form-control item" type="password" th:field="*{password}" id="password"/>
+            <input class="form-control item" type="password" th:field="*{password}" id="password" required/>
             <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
                 password error
             </div>

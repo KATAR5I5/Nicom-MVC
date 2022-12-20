@@ -28,10 +28,9 @@ public class RegistrationService {
          */
         employee.setRole("ROLE_USER");
 //        создаем каталог для работы с файлом данного сотрудника
-        Path uploadFiles = Paths.get("F:\\Distr Java\\FirstSecurityApp\\src\\main\\load_files");
+        Path uploadFiles = Paths.get("src\\main\\load_files");
         Path dir1C = Paths.get(uploadFiles+"\\Emp"+employee.getUsername());
         Path pathFileDep = Paths.get(uploadFiles+"\\Dep.xlsx");
-
             try {
                 Files.createDirectories(dir1C);
             } catch (IOException e) {

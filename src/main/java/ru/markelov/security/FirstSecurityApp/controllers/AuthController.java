@@ -8,6 +8,8 @@ import ru.markelov.security.FirstSecurityApp.models.Employee;
 import ru.markelov.security.FirstSecurityApp.services.RegistrationService;
 import ru.markelov.security.FirstSecurityApp.util.EmployeeValidator;
 
+import javax.validation.Valid;
+
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
@@ -31,7 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("employee")  Employee employee, BindingResult bindingResult) {
+    public String performRegistration(@ModelAttribute("employee")  @Valid Employee employee, BindingResult bindingResult) {
         employeeValidator.validate(employee, bindingResult);
         if(bindingResult.hasErrors()){
         return "auth/registration";

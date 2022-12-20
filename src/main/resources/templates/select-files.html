@@ -7,43 +7,50 @@
 <head>
     <title>Загрузка файлов</title>
 </head>
-<body>
-<div class="registration-cssave">
-    <a th:href="@{/logout}">
-        <button class="btn btn-primary btn-block logout-account" type="button">Logout</button>
-    </a>
-    <br>
-    <br>
 
-    <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
-        <h2 class="text-center">Укажите путь к файлам для формирования сообщений</h2>
-        <h3> Загрузите EXEL файл в формате .XLSX из отчета 1С - 'Техника в отделениях'</h3>
-        <label class="btn btn-primary btn-block logout-account">
-            <input type="file" name="file">
-        </label>
-        <button class="btn btn-primary btn-block create-account" type="submit">Загрузить 1С</button>
-    </form>
-    <a th:text="${file1C}"></a>
+<body>
+<div class="registration-cssave" >
+    <a th:href="@{/logout}" >
+        <button class="btn btn-primary btn-block logout-account" type="button">Выход Мастер <b th:text="${thisEmp.getUsername()}"/></button>
+    </a>
+    <br> <br>
+    <div>
+        <form action="">
+            <h2 class="text-center"><b th:text="${thisEmp.getEmployeeName()}"/>, укажите путь к файлам "1С -Техника в отделениях" и "Наши отделения" для формирования сообщения и
+                оповещения клиентов.</h2>
+        </form>
+    </div>
     <br>
-    <form method="POST" th:action="@{/uploadFileDep}" enctype="multipart/form-data">
-        <p> Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</p>
-        <label class="btn btn-primary btn-block logout-account">
-            <input type="file" name="file2">
-        </label>
-        <button class="btn btn-primary btn-block create-account" type="submit">Загрузить Отделения</button>
-    </form>
-    <a th:text="${dep}"></a>
+    <div>
+        <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
+            <h3> Загрузите EXEL файл в формате .XLSX из отчета 1С - 'Техника в отделениях'</h3>
+            <label class="btn btn-primary btn-block logout-account">
+                <input type="file" name="file">
+            </label>
+            <span>&emsp;</span>
+            <button class="btn btn-primary btn-block create-account" type="submit">Загрузить 1С</button>
+            <a th:text="${file1C}"></a>
+        </form>
+    </div>
     <br>
-    <br>
+    <div>
+        <form method="POST" th:action="@{/uploadFileDep}" enctype="multipart/form-data">
+            <h3> Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</h3>
+            <label class="btn btn-primary btn-block logout-account">
+                <input type="file" name="file2">
+            </label>
+            <span>&emsp;</span>
+            <button class="btn btn-primary btn-block create-account" type="submit">Загрузить Отделения</button>
+            <a th:text="${dep}"></a>
+        </form>
+    </div>
     <div>
         <a th:href="@{/generateReport1}">
             <button class="btn btn-primary btn-block registration-account" type="button">Сформировать</button>
-
-            <span><a>&emsp;</a>
-    <a th:href="@{/currentDB}">
-        <button class="btn btn-primary btn-block create-account" type="button">Открыть действующую</button>
-    </a>
-    </span>
+        </a>
+        <span>&emsp;</span>
+        <a th:href="@{/currentDB}">
+            <button class="btn btn-primary btn-block create-account" type="button">Открыть действующую</button>
         </a>
     </div>
 </div>
