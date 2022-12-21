@@ -4,7 +4,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import ru.markelov.security.FirstSecurityApp.aspect.logic.CreateNicomObjects;
 import ru.markelov.security.FirstSecurityApp.aspect.logic.RepairMessage;
 import ru.markelov.security.FirstSecurityApp.aspect.logic.StatusMessage;
-import ru.markelov.security.FirstSecurityApp.repositories.ClientsDAO;
+import ru.markelov.security.FirstSecurityApp.DAO.ClientsDAO;
 import ru.markelov.security.FirstSecurityApp.models.ClientsDB;
 import ru.markelov.security.FirstSecurityApp.models.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import ru.markelov.security.FirstSecurityApp.security.EmployeeDetails;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -95,10 +96,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-
     @Transactional
     @Override
-    public List<ClientsDB> updateAllClientsInfo(List<ClientsDB> newAllClients) {
+    public List<ClientsDB> updateAllClientsInfo(List<ClientsDB> oldClient) {
         /*
         - создаем новую таблицу
         - заполняем таблицу сравнивая с существующей
@@ -108,13 +108,17 @@ public class ClientServiceImpl implements ClientService {
 
 
          */
-        List<ClientsDB> oldClient = getAllClients();
+        List<ClientsDB> newAllClients = getAllClients();
+//        clearDataBase();
+//        addAllDevicesInDepartment(newAllClients);
+//        List<ClientsDB> updateList = new ArrayList<>();
         for (ClientsDB client : oldClient) {
             if (newAllClients.contains(client)) {
                 if (client.getStatusMessage() == null) {
                     client.setStatusMessage(StatusMessage.NOT_SENT);
                 }
-                newAllClients.set(newAllClients.indexOf(client), client);
+
+                saveClientDBInfo(client);
             }
         }
         return newAllClients;
@@ -184,6 +188,10 @@ public class ClientServiceImpl implements ClientService {
     - обновить в базе информацию о клиенте
 
      */
+    }
+    @Transactional
+    public void saveClientDBInfo(ClientsDB clientsDB){
+        clientsDAO.saveClientDBInfo(clientsDB);
     }
 
     @Override
@@ -291,5 +299,7 @@ public class ClientServiceImpl implements ClientService {
 //        }
 //        return new EmployeeDetails(emp.get());
 //    }
+
+
 }
 

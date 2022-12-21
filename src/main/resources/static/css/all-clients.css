@@ -26,8 +26,9 @@ body {
     background-color:#c6e4ff;
 }
 
-.registration-cssave form h3 {
-    font-weight:bold;
+.h3 {
+    /*font-weight:bold;*/
+    font-size:18px;
     margin-bottom:30px;
 }
 .registration-cssave form h2 {

@@ -41,6 +41,8 @@ public class Employee {
     @Column(name = "speciality")
     private String speciality;
 
+    @Column(name = "department")
+    private String department;
     public String getEmployeeName() {
         return employeeName;
     }
@@ -65,8 +67,6 @@ public class Employee {
         this.department = department;
     }
 
-    @Column(name = "department")
-    private String department;
 
     public String getPath() {
         return path;

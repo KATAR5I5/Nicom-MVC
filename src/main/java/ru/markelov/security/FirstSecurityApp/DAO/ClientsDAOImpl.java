@@ -1,9 +1,8 @@
-package ru.markelov.security.FirstSecurityApp.repositories;
+package ru.markelov.security.FirstSecurityApp.DAO;
 
 import ru.markelov.security.FirstSecurityApp.models.ClientsDB;
 import ru.markelov.security.FirstSecurityApp.models.Employee;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +22,7 @@ public class ClientsDAOImpl implements ClientsDAO {
     @Override
     public void addAllDevicesInClientDB(List<ClientsDB> clientsDBList) {
         Session session = entityManager.unwrap(Session.class);
-                clientsDBList.stream()
+        clientsDBList.stream()
                 .forEach(clientsDB -> session.saveOrUpdate(clientsDB));
     }
 
@@ -36,12 +35,14 @@ public class ClientsDAOImpl implements ClientsDAO {
     public void updateAllClientDBInfo() {
 
     }
+
     @Override
     public void saveClientDBInfo(ClientsDB clientsDB) {
 //        получаем из базы клиента, меняем значения в колонках
         Session session = entityManager.unwrap(Session.class);
         session.saveOrUpdate(clientsDB);
-    }
+            }
+
     @Override
     public List<ClientsDB> getAllClientsDBInfo() {
         Session session = entityManager.unwrap(Session.class);
@@ -49,6 +50,7 @@ public class ClientsDAOImpl implements ClientsDAO {
         List<ClientsDB> allClients = session.createQuery("FROM ClientsDB").getResultList();
         return allClients;
     }
+
     @Override
     public ClientsDB getClientDBInfo(int id) {
         Session session = entityManager.unwrap(Session.class);
@@ -62,12 +64,15 @@ public class ClientsDAOImpl implements ClientsDAO {
     public void deleteClientDB(ClientsDB clientsDB) {
         Session session = entityManager.unwrap(Session.class);
         session.delete(clientsDB);
+
     }
+
     @Override
     public void clearDataBase() {
         Session session = entityManager.unwrap(Session.class);
-        session.createQuery("delete ClientsDB ").executeUpdate();
-        session.createSQLQuery("ALTER TABLE clients AUTO_INCREMENT=1").executeUpdate();
+//        session.createQuery("truncate clients").executeUpdate();
+        session.createSQLQuery("truncate table clients").executeUpdate();
+        session.clear();
     }
 
     @Override
@@ -77,4 +82,12 @@ public class ClientsDAOImpl implements ClientsDAO {
         Optional<Employee> optionalEmployee = Optional.of(employee);
         return optionalEmployee;
     }
+
+    public List<Employee> getAllEmployees() {
+        Session session = entityManager.unwrap(Session.class);
+        List<Employee> allEmployees = session.createQuery("from Employee").getResultList();
+        return allEmployees;
+    }
 }
+
+

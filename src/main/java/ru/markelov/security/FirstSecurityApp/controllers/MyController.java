@@ -19,42 +19,50 @@ import java.util.List;
 public class MyController {
     @Autowired
     private ClientService clientService;
-
+    @ModelAttribute("thisEmp")
+    public Employee authEmployee(){
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        return emp;
+    }
 
     @GetMapping("/")
     public String index(Model model) {
-        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
-        model.addAttribute("thisEmp", emp);
+//        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+//        model.addAttribute("thisEmp", emp);
         return "select-files";
     }
 
-    @RequestMapping("/generateReport1")
+    @GetMapping("/generateReport1")
     public String showAllClients() {
-        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+//        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
         /*
         - создание объектов
         - и запись их в базу
          */
-        System.out.println(emp);
+//        System.out.println(emp);
         Path path1C = clientService.verify1CFile();
         Path pathDepartment = clientService.verifyDepartmentsFile();
         List<ClientsDB> listNewClients = clientService
                 .createListDevicesInDepartment(path1C, pathDepartment);
-        List<ClientsDB> updateList = clientService.updateAllClientsInfo(listNewClients);
-//
+//        System.out.println(listNewClients);
+        List<ClientsDB> oldClient = clientService.getAllClients();
         clientService.clearDataBase();
-        clientService.addAllDevicesInDepartment(updateList);
+        clientService.addAllDevicesInDepartment(listNewClients);
+
+        List<ClientsDB> updateList = clientService.updateAllClientsInfo(oldClient);
+//        System.out.println(updateList);
+//        System.out.println(updateList);
 //        clientService.addAllDevicesInDepartment(listNewClients);
         return "redirect:/currentDB";
     }
 
-    @RequestMapping("/currentDB")
+    @GetMapping("/currentDB")
     public String showCurrentDB(Model model) {
     /*
      - Получение списков из базы
      */
-        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
-        model.addAttribute("thisEmp", emp);
+//        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+//        model.addAttribute("thisEmp", emp);
         List<ClientsDB> clientsWithRepair = clientService.getClientsWithRepair();
         List<ClientsDB> clientsWithOutRepair = clientService.getClientsWithOutRepair();
         model.addAttribute("clientsWithRepair", clientsWithRepair);
@@ -64,7 +72,7 @@ public class MyController {
         return "all-clients";
     }
 
-    @RequestMapping("/addFile1C")
+    @GetMapping("/addFile1C")
     public String addFile1C() {
 
         return "redirect:/";
@@ -74,7 +82,7 @@ public class MyController {
     public void addFileDepartments() {
     }
 
-    @RequestMapping("/clearClients")
+    @GetMapping("/clearClients")
     public String clearClientsDB() {
         clientService.clearDataBase();
         return "redirect:/";
@@ -105,7 +113,7 @@ public class MyController {
         return "redirect:" + uriWhatsAppSend;
     }
 
-    @RequestMapping("/remove")
+    @GetMapping("/remove")
     public String removeClientDB(@RequestParam("clientDbID") int id, Model model) {
         ClientsDB clientsDB = clientService.getClientDB(id);
 
