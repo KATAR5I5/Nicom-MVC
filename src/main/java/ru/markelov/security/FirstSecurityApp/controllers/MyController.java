@@ -19,8 +19,9 @@ import java.util.List;
 public class MyController {
     @Autowired
     private ClientService clientService;
+
     @ModelAttribute("thisEmp")
-    public Employee authEmployee(){
+    public Employee authEmployee() {
         Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
         return emp;
     }
@@ -34,22 +35,27 @@ public class MyController {
 
     @GetMapping("/generateReport1")
     public String showAllClients() {
-//        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
         /*
-        - создание объектов
-        - и запись их в базу
+        - создаем список клиентов из файлов
+        - получаем список из базы
+        - очищаем базу
+        - обновляем новый список
+        - заполняем базу из нового списка
+
          */
 //        System.out.println(emp);
         Path path1C = clientService.verify1CFile();
         Path pathDepartment = clientService.verifyDepartmentsFile();
-        List<ClientsDB> listNewClients = clientService
+        List<ClientsDB> newClientList = clientService
                 .createListDevicesInDepartment(path1C, pathDepartment);
-//        System.out.println(listNewClients);
-        List<ClientsDB> oldClient = clientService.getAllClients();
+        List<ClientsDB> oldClientList = clientService.getAllClients();
         clientService.clearDataBase();
-        clientService.addAllDevicesInDepartment(listNewClients);
+// Обновляет новый список
+        clientService.updateAllClientsInfo(oldClientList, newClientList);
 
-        List<ClientsDB> updateList = clientService.updateAllClientsInfo(oldClient);
+
+        clientService.addAllDevicesInDepartment(newClientList);
+
 //        System.out.println(updateList);
 //        System.out.println(updateList);
 //        clientService.addAllDevicesInDepartment(listNewClients);

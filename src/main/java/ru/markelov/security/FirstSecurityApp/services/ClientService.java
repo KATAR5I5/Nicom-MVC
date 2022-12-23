@@ -29,7 +29,7 @@ public interface ClientService {
 
     void updateStatusAndDateMessage(ClientsDB clientsDB);
 
-    public List<ClientsDB>  updateAllClientsInfo(List<ClientsDB> newAllClients);
+    public void updateAllClientsInfo(List<ClientsDB> oldClientList, List<ClientsDB> newClientList);
 
     @Transactional
     void deleteClient(ClientsDB clientsDB);

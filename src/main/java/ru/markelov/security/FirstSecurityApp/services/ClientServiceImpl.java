@@ -98,7 +98,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public List<ClientsDB> updateAllClientsInfo(List<ClientsDB> oldClient) {
+    public void updateAllClientsInfo(List<ClientsDB> oldClientList, List<ClientsDB> newClientList) {
         /*
         - создаем новую таблицу
         - заполняем таблицу сравнивая с существующей
@@ -108,20 +108,18 @@ public class ClientServiceImpl implements ClientService {
 
 
          */
-        List<ClientsDB> newAllClients = getAllClients();
-//        clearDataBase();
-//        addAllDevicesInDepartment(newAllClients);
-//        List<ClientsDB> updateList = new ArrayList<>();
-        for (ClientsDB client : oldClient) {
-            if (newAllClients.contains(client)) {
-                if (client.getStatusMessage() == null) {
-                    client.setStatusMessage(StatusMessage.NOT_SENT);
+        for (ClientsDB clientInOldList : oldClientList) {
+            if (newClientList.contains(clientInOldList)) {
+                ClientsDB clientInNewList = newClientList.get(newClientList.indexOf(clientInOldList));
+                if (clientInOldList.getStatusMessage() == null) {
+                    clientInNewList.setStatusMessage(StatusMessage.NOT_SENT);
+                } else {
+                    clientInNewList.setStatusMessage(clientInOldList.getStatusMessage());
+                    clientInNewList.setLocalDate(clientInOldList.getLocalDate());
                 }
-
-                saveClientDBInfo(client);
             }
         }
-        return newAllClients;
+//        return newClientList;
 
 
 //        Set<ClientsDB> setNewClients = Set.copyOf(newAllClients);
@@ -189,8 +187,9 @@ public class ClientServiceImpl implements ClientService {
 
      */
     }
+
     @Transactional
-    public void saveClientDBInfo(ClientsDB clientsDB){
+    public void saveClientDBInfo(ClientsDB clientsDB) {
         clientsDAO.saveClientDBInfo(clientsDB);
     }
 

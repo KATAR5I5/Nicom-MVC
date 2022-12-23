@@ -41,7 +41,7 @@ public class RepairMessage {
                     .append(name)
                     .append(" Ваш аппарат - ")
                     .append(deviceName)
-                    .append(" - готов. Оплатить при получении  необходимо - ")
+                    .append(" ГОТОВ. Оплатить при получении  необходимо - ")
                     .append(device.getPriceToRepair())
                     .append("руб. Оплата производится - НАЛИЧНЫМИ.  Аппарат в данный момент находится на пункте выдачи по адресу: метро - ")
                     .append(departmentMap.get(device.getDepartment()).getMetroStation())
@@ -51,7 +51,10 @@ public class RepairMessage {
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkDay())
                     .append(". В выходные дни - ")
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkWeekend())
-                    .append(".");
+                    .append(".\n")
+                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ сдававшего. ")
+                    .append("Ваш номер квитанции: ")
+                    .append(device.getFullTicketNumber());
             return stringBuilderMessage.toString();
 
         } else if (device.getDepartment().equals("Б4")) {
