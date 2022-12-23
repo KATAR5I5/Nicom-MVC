@@ -52,7 +52,7 @@ public class RepairMessage {
                     .append(". В выходные дни - ")
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkWeekend())
                     .append(".\n")
-                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ сдававшего. ")
+                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
                     .append("Ваш номер квитанции: ")
                     .append(device.getFullTicketNumber());
             return stringBuilderMessage.toString();
@@ -65,7 +65,10 @@ public class RepairMessage {
                     .append(deviceName)
                     .append(" - готов. Оплатить при получении  необходимо - ")
                     .append(device.getPriceToRepair())
-                    .append("руб. Аппарат в данный момент находится на пункте выдачи по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы пункта выдачи в будни - 10-20ч. В выходные дни - 10-18ч.");
+                    .append("руб. Аппарат в данный момент находится на пункте выдачи по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы пункта выдачи в будни - 10-20ч. В выходные дни - 10-18ч.")
+                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
+                    .append("Ваш номер квитанции: ")
+                    .append(device.getFullTicketNumber());
 
             return stringBuilderMessage.toString();
         }
@@ -76,7 +79,11 @@ public class RepairMessage {
                 .append(deviceName)
                 .append(" - готов. Оплатить при получении  необходимо - ")
                 .append(device.getPriceToRepair())
-                .append("руб. Оплата производится - НАЛИЧНЫМИ.  Аппарат в данный момент находится на пункте выдачи.").toString();
+                .append("руб. Оплата производится - НАЛИЧНЫМИ.  Аппарат в данный момент находится на пункте выдачи.")
+                .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
+                .append("Ваш номер квитанции: ")
+                .append(device.getFullTicketNumber())
+                .toString();
     }
 
 
@@ -100,7 +107,11 @@ public class RepairMessage {
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkDay())
                     .append(". В выходные дни - ")
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkWeekend())
-                    .append(".");
+                    .append(".\n")
+                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
+                    .append("Ваш номер квитанции: ")
+                    .append(device.getFullTicketNumber())
+            ;
 
 
             return stringBuilderMessage.toString();
@@ -110,7 +121,11 @@ public class RepairMessage {
                     .append(name)
                     .append(" Ваш аппарат - ")
                     .append(deviceName)
-                    .append(" в данный момент находится на пункте выдачи по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы пункта выдачи в будни - 10-20ч. В выходные дни - 10-18ч.");
+                    .append(" в данный момент находится на пункте выдачи по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы пункта выдачи в будни - 10-20ч. В выходные дни - 10-18ч.")
+                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
+                    .append("Ваш номер квитанции: ")
+                    .append(device.getFullTicketNumber())
+            ;
 
             return stringBuilderMessage.toString();
         }
@@ -119,7 +134,11 @@ public class RepairMessage {
                 .append(name)
                 .append(" Ваш аппарат - ")
                 .append(deviceName)
-                .append(" в данный момент находится на пункте выдачи.").toString();
+                .append(" в данный момент находится на пункте выдачи.")
+                .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
+                .append("Ваш номер квитанции: ")
+                .append(device.getFullTicketNumber())
+                .toString();
     }
 
 
