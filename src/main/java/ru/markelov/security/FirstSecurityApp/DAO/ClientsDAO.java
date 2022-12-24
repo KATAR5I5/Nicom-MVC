@@ -12,7 +12,7 @@ public interface ClientsDAO {
 
     void saveClientDBInfo(ClientsDB clientsDB);
 
-    public List<ClientsDB> getAllClientsDBInfo();
+    public List<ClientsDB> getAllClientsDBInfo(int employeeID);
     public ClientsDB getClientDBInfo(int id);
     public void updateAllClientDBInfo();
 

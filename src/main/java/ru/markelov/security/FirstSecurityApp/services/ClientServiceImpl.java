@@ -27,40 +27,23 @@ public class ClientServiceImpl implements ClientService {
     private LocalDate today = LocalDate.now();
     private CreateNicomObjects nicom = null;
 
-    @Override
-    @Transactional
-    public List<ClientsDB> getAllClients() {
-        return clientsDAO.getAllClientsDBInfo();
+    private Employee authEmployee() {
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        return emp;
     }
 
     @Override
-    @Transactional
-    public List<ClientsDB> getClientsWithRepair() {
+    public List<ClientsDB> getAllClients(int employeeID) {
+        return clientsDAO.getAllClientsDBInfo(employeeID);
+    }
 
-        List<ClientsDB> clientsWithRepair = clientsDAO.getAllClientsDBInfo().stream()
+    @Override
+    public List<ClientsDB> getClientsWithRepair() {
+        List<ClientsDB> clientsWithRepair = clientsDAO.getAllClientsDBInfo(authEmployee().getId()).stream()
                 .filter(e -> e.getPriceToRepair() > 1)
                 .sorted()
                 .collect(Collectors.toList());
         return clientsWithRepair;
-    }
-
-    @Override
-    public void load1CFile() {
-
-    }
-    /*
-    - Загрузить фаил в папку
-    - Проверить, существует ли фаил
-    - Произвести действие или вызвать небходимый метод
-     */
-
-    @Override
-    public void loadDepartmentsFile() {
-    /*
-    - Загрузить фаил в папку
-    - Проверить, существует ли фаил
-    - Произвести действие или вызвать небходимый метод
-     */
     }
 
     @Override
@@ -88,7 +71,6 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    @Transactional
     public void updateStatusAndDateMessage(ClientsDB clientsDB) {
         clientsDB.setStatusMessage(StatusMessage.SENT);
         clientsDB.setLocalDate(today);
@@ -96,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
-    @Transactional
+    //    @Transactional
     @Override
     public void updateAllClientsInfo(List<ClientsDB> oldClientList, List<ClientsDB> newClientList) {
         /*
@@ -119,84 +101,12 @@ public class ClientServiceImpl implements ClientService {
                 }
             }
         }
-//        return newClientList;
-
-
-//        Set<ClientsDB> setNewClients = Set.copyOf(newAllClients);
-//        for (ClientsDB clients : oldClient) {
-//            if (setNewClients.contains(clients)) {
-//                if (clients.getStatusMessage() == null) {
-//                    clients.setStatusMessage(StatusMessage.NOT_SENT);
-//                }
-//                setNewClients.add(clients);
-//            }
-//        }
-//        System.out.println("new " + newClients.size());
-//        System.out.println("old " + oldClient.size());
-//        for (ClientsDB client : oldClient) {
-//            if (newAllClients.contains(client)) {
-//                ClientsDB temp = newAllClients.get(newAllClients.indexOf(client));
-//                if (client.getStatusMessage() == null || client.getStatusMessage() == StatusMessage.NOT_SENT) {
-//                    temp.setStatusMessage(StatusMessage.NOT_SENT);
-////                    client.setStatusMessage(StatusMessage.NOT_SENT);
-//                } else {
-//                    temp.setStatusMessage(client.getStatusMessage());
-//                    temp.setLocalDate(client.getLocalDate());
-//                }
-//
-//            }
-//        }
-//        System.out.println("new update " + newAllClients.size());
-//        List<ClientsDB> nl = List.copyOf(newAllClients);
-//        clearDataBase();
-//        System.out.println("new before " + newClients.size());
-//        System.out.println("new before " + newAllClients.size());
-//        clearDataBase();
-//        addAllDevicesInDepartment(newAllClients);
-//        return newAllClients;
-    }
-
-    @Override
-    public void addStatusMessage() {
-    /*
-    - получить по ID клиента из базы
-    - добавить значок "Отправлено" в колонку Статус
-     */
-    }
-
-    @Override
-    public void sendMessageToClient() {
-    /*
-    - перейти на страницу WhatsApp с номером клиента и текстом сообщения
-    - получить ответ после нажатия кнопки отправить
-    - добавить в поле "Дата" - актуальную дату
-    - добавить значок "Отправлено" в колонку Статус
-    - обновить в базе информацию о клиенте
-     */
-
 
     }
 
     @Override
-    public void reSendMessageToClient() {
-    /*
-    - отправить текст еще раз (вызвать метод sendMessageToClient)
-    - обновить поле "Дата" - на актуальную дату
-    - добавить значок "Отправлено" в колонку Статус
-    - обновить в базе информацию о клиенте
-
-     */
-    }
-
-    @Transactional
-    public void saveClientDBInfo(ClientsDB clientsDB) {
-        clientsDAO.saveClientDBInfo(clientsDB);
-    }
-
-    @Override
-    @Transactional
     public List<ClientsDB> getClientsWithOutRepair() {
-        List<ClientsDB> clientsWithOutRepair = clientsDAO.getAllClientsDBInfo()
+        List<ClientsDB> clientsWithOutRepair = clientsDAO.getAllClientsDBInfo(authEmployee().getId())
                 .stream()
                 .filter(e -> e.getPriceToRepair() < 1)
                 .sorted()
@@ -205,27 +115,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    @Transactional
     public void clearDataBase() {
         clientsDAO.clearDataBase();
     }
 
     @Override
-    @Transactional
     public void deleteClient(ClientsDB clientsDB) {
-        /*
-
-         */
         clientsDAO.deleteClientDB(clientsDB);
-    }
-
-    public void addDateSendMessageInClientDB() {
-        /*
-    - получить по ID клиента из базы
-    - добавить актуальную дату
-    - добавить значок "Отправлено" в колонку Статус
-         */
-
     }
 
     public List<ClientsDB> createListDevicesInDepartment(Path path1C, Path pathDepartments) {
@@ -263,6 +159,7 @@ public class ClientServiceImpl implements ClientService {
                     clientsDB.setPhoneNumberTwo(device.getValue().getPhoneNumberTwo());
                     String message = repairMessage.getMessageComplete(device.getKey(), device.getValue());
                     clientsDB.setMassage(message);
+                    clientsDB.setOwner(authEmployee());
 //                    clientsDB.setLocalDate(LocalDate.now());
 //                    clientsDB.setStatusMessage();
                     return clientsDB;
@@ -272,13 +169,11 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    @Transactional
     public void addAllDevicesInDepartment(List<ClientsDB> clientsDBList) {
         clientsDAO.addAllDevicesInClientDB(clientsDBList);
     }
 
     @Override
-    @Transactional
     public ClientsDB getClientDB(int id) {
         ClientsDB clientsDB = clientsDAO.getClientDBInfo(id);
         return clientsDB;
@@ -287,18 +182,6 @@ public class ClientServiceImpl implements ClientService {
     public Optional<Employee> findByUsername(String name) {
         return clientsDAO.findByUsername(name);
     }
-
-//    @Override
-//    @Transactional
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        Optional<Employee> emp = clientsDAO.findByUsername(username);
-//        if (emp.isEmpty()) {
-//            throw new UsernameNotFoundException("User not found");
-//
-//        }
-//        return new EmployeeDetails(emp.get());
-//    }
-
 
 }
 

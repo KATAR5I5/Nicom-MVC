@@ -37,12 +37,13 @@
     <br>
     <div>
         <form method="POST" th:action="@{/uploadFileDep}" enctype="multipart/form-data">
-            <h3> Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</h3>
+            <h2>Список отделений от - 20 ДЕКАБРЯ 2022г.</h2>
+            <h3> Для обновления информации о действующих отделениях, Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</h3>
             <label class="btn btn-primary btn-block logout-account">
                 <input type="file" name="file2">
             </label>
             <span>&emsp;</span>
-            <button class="btn btn-primary btn-block create-account" type="submit">Загрузить Отделения</button>
+            <button class="btn btn-primary btn-block create-account" type="submit">Обновить Отделения</button>
             <a th:text="${dep}"></a>
         </form>
     </div>

@@ -1,10 +1,12 @@
 package ru.markelov.security.FirstSecurityApp.DAO;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import ru.markelov.security.FirstSecurityApp.models.ClientsDB;
 import ru.markelov.security.FirstSecurityApp.models.Employee;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.markelov.security.FirstSecurityApp.security.EmployeeDetails;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -19,6 +21,10 @@ public class ClientsDAOImpl implements ClientsDAO {
         this.entityManager = entityManager;
     }
 
+    private Employee authEmployee() {
+        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
+        return emp;
+    }
     @Override
     public void addAllDevicesInClientDB(List<ClientsDB> clientsDBList) {
         Session session = entityManager.unwrap(Session.class);
@@ -44,11 +50,13 @@ public class ClientsDAOImpl implements ClientsDAO {
             }
 
     @Override
-    public List<ClientsDB> getAllClientsDBInfo() {
+    public List<ClientsDB> getAllClientsDBInfo(int employeeID) {
         Session session = entityManager.unwrap(Session.class);
-
-        List<ClientsDB> allClients = session.createQuery("FROM ClientsDB").getResultList();
-        return allClients;
+        Employee currentEmployee = session.get(Employee.class, employeeID);
+        List<ClientsDB> allClientsCurrentEmployee = currentEmployee.getClientsDBList();
+//        List<ClientsDB> allClients = session.createQuery("FROM ClientsDB").
+//                getResultList();
+        return allClientsCurrentEmployee;
     }
 
     @Override
@@ -71,8 +79,15 @@ public class ClientsDAOImpl implements ClientsDAO {
     public void clearDataBase() {
         Session session = entityManager.unwrap(Session.class);
 //        session.createQuery("truncate clients").executeUpdate();
-        session.createSQLQuery("truncate table clients").executeUpdate();
-        session.clear();
+//        Employee employee = session.ge t(Employee.class, authEmployee().getId());
+        List<ClientsDB> clientsDBCurrentEmployee = authEmployee().getClientsDBList();
+        System.out.println("clear-ok1");
+        for (ClientsDB clientsDB: clientsDBCurrentEmployee){
+            session.remove(clientsDB);
+        }
+//         session.
+//        session.createSQLQuery("truncate table clients").executeUpdate();
+//        session.clear();
     }
 
     @Override

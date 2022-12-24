@@ -4,6 +4,7 @@ package ru.markelov.security.FirstSecurityApp.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -17,6 +18,8 @@ public class Employee {
 //    @Size(min=3, max=3, message = "Номер мастера 3х значный, 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
 //    @Column(name = "numberemployee")
 //    private String numberEmployee;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    private List<ClientsDB> clientsDBList;
 
     @Size(min = 3, max = 3, message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
     @NotEmpty(message = "№ мастера не должен быть пустым")
@@ -45,6 +48,14 @@ public class Employee {
     private String department;
     public String getEmployeeName() {
         return employeeName;
+    }
+
+    public List<ClientsDB> getClientsDBList() {
+        return clientsDBList;
+    }
+
+    public void setClientsDBList(List<ClientsDB> clientsDBList) {
+        this.clientsDBList = clientsDBList;
     }
 
     public void setEmployeeName(String numberEmployee) {

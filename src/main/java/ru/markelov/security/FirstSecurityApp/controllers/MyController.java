@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -30,6 +31,9 @@ public class MyController {
     public String index(Model model) {
 //        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
 //        model.addAttribute("thisEmp", emp);
+        List <String> currentDepartmentAttributes = new ArrayList<>();
+
+        model.addAttribute("currentDepartment", currentDepartmentAttributes);
         return "select-files";
     }
 
@@ -48,17 +52,15 @@ public class MyController {
         Path pathDepartment = clientService.verifyDepartmentsFile();
         List<ClientsDB> newClientList = clientService
                 .createListDevicesInDepartment(path1C, pathDepartment);
-        List<ClientsDB> oldClientList = clientService.getAllClients();
+        System.out.println("ok1");
+        List<ClientsDB> oldClientList = clientService.getAllClients(authEmployee().getId());
+        System.out.println("ok2");
         clientService.clearDataBase();
+        System.out.println("ok3");
 // Обновляет новый список
-        clientService.updateAllClientsInfo(oldClientList, newClientList);
-
-
+//        clientService.updateAllClientsInfo(oldClientList, newClientList);
+        System.out.println(newClientList);
         clientService.addAllDevicesInDepartment(newClientList);
-
-//        System.out.println(updateList);
-//        System.out.println(updateList);
-//        clientService.addAllDevicesInDepartment(listNewClients);
         return "redirect:/currentDB";
     }
 

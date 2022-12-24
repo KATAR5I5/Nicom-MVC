@@ -13,6 +13,9 @@ public class ClientsDB implements Comparable<ClientsDB>{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee owner;
 
     @Column(name = "department")
     private String department;
@@ -47,7 +50,7 @@ public class ClientsDB implements Comparable<ClientsDB>{
     public ClientsDB() {
     }
 
-    public ClientsDB(String department, Integer ticketNumber, String firstName, String secondName, String thirdName, String device, Double priceToRepair, Long phoneNumberOne, Long phoneNumberTwo) {
+    public ClientsDB(String department, Integer ticketNumber, String firstName, String secondName, String thirdName, String device, Double priceToRepair, Long phoneNumberOne, Long phoneNumberTwo, Employee owner ) {
         this.department = department;
         this.ticketNumber = ticketNumber;
         this.firstName = firstName;
@@ -57,6 +60,15 @@ public class ClientsDB implements Comparable<ClientsDB>{
         this.priceToRepair = priceToRepair;
         this.phoneNumberOne = phoneNumberOne;
         this.phoneNumberTwo = phoneNumberTwo;
+        this.owner = owner;
+    }
+
+    public Employee getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Employee owner) {
+        this.owner = owner;
     }
 
     public int getId() {

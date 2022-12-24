@@ -8,44 +8,40 @@ import java.nio.file.Path;
 import java.util.List;
 
 public interface ClientService {
-    public List<ClientsDB> getAllClients();
-
-    public List<ClientsDB> getClientsWithRepair();
-
-    public List<ClientsDB> getClientsWithOutRepair();
-
-
-    public void clearDataBase();
-//            Очистить базу данных, сбросить Primary Key
-//            Удалить загруженные файлы
-
-
-//    load files
-
-    public void load1CFile();
-    public void loadDepartmentsFile();
     public Path verify1CFile();
     public Path verifyDepartmentsFile();
-
+    @Transactional
+    public List<ClientsDB> getAllClients(int employeeID);
+    @Transactional
+    public List<ClientsDB> getClientsWithRepair();
+    @Transactional
+    public List<ClientsDB> getClientsWithOutRepair();
+    @Transactional
+    public void clearDataBase();
+    @Transactional
     void updateStatusAndDateMessage(ClientsDB clientsDB);
-
     public void updateAllClientsInfo(List<ClientsDB> oldClientList, List<ClientsDB> newClientList);
-
     @Transactional
     void deleteClient(ClientsDB clientsDB);
-
-    public void addDateSendMessageInClientDB();
-    public void addStatusMessage();
-
-    public void sendMessageToClient();
-    public void reSendMessageToClient();
-
     @Transactional
    public void addAllDevicesInDepartment(List<ClientsDB> clientsDBList);
-
+    @Transactional
     public ClientsDB getClientDB(int id);
+    @Transactional
     public List<ClientsDB> createListDevicesInDepartment(Path path1C, Path pathDepartments);
-//    public Optional<Employee> findByUsername(String name);
-//public UserDetails loadUserByUsername(String username);
-
 }
+
+
+
+//    public void load1CFile();
+//    public void loadDepartmentsFile();
+//    public void addDateSendMessageInClientDB();
+//
+//    public void addStatusMessage();
+//        /*
+//    - получить по ID клиента из базы
+//    - добавить значок "Отправлено" в колонку Статус
+//     */
+//
+//    public void sendMessageToClient();
+//    public void reSendMessageToClient();
