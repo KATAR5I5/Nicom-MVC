@@ -53,12 +53,14 @@ public class MyController {
         List<ClientsDB> newClientList = clientService
                 .createListDevicesInDepartment(path1C, pathDepartment);
         System.out.println("ok1");
+        System.out.println(newClientList);
         List<ClientsDB> oldClientList = clientService.getAllClients(authEmployee().getId());
         System.out.println("ok2");
+        System.out.println(oldClientList);
         clientService.clearDataBase();
         System.out.println("ok3");
 // Обновляет новый список
-//        clientService.updateAllClientsInfo(oldClientList, newClientList);
+        clientService.updateAllClientsInfo(oldClientList, newClientList);
         System.out.println(newClientList);
         clientService.addAllDevicesInDepartment(newClientList);
         return "redirect:/currentDB";

@@ -79,11 +79,16 @@ public class ClientsDAOImpl implements ClientsDAO {
     public void clearDataBase() {
         Session session = entityManager.unwrap(Session.class);
 //        session.createQuery("truncate clients").executeUpdate();
-//        Employee employee = session.ge t(Employee.class, authEmployee().getId());
-        List<ClientsDB> clientsDBCurrentEmployee = authEmployee().getClientsDBList();
+        Employee employee = session.get(Employee.class, authEmployee().getId());
+        System.out.println("clearMethod");
+        List<ClientsDB> clientsDBCurrentEmployee = employee.getClientsDBList();
+
+        System.out.println(clientsDBCurrentEmployee);
         System.out.println("clear-ok1");
         for (ClientsDB clientsDB: clientsDBCurrentEmployee){
+            System.out.println(clientsDB);
             session.remove(clientsDB);
+
         }
 //         session.
 //        session.createSQLQuery("truncate table clients").executeUpdate();
