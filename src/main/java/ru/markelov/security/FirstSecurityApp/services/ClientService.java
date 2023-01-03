@@ -6,11 +6,11 @@ import ru.markelov.security.FirstSecurityApp.models.Employee;
 
 import java.nio.file.Path;
 import java.util.List;
-
+@Transactional
 public interface ClientService {
     public Path verify1CFile();
     public Path verifyDepartmentsFile();
-    @Transactional
+//    @Transactional
     public List<ClientsDB> getAllClients(int employeeID);
     @Transactional
     public List<ClientsDB> getClientsWithRepair();

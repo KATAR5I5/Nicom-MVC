@@ -25,7 +25,7 @@
     <br>
     <div>
         <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
-            <h3> Загрузите EXEL файл в формате .XLSX из отчета 1С - 'Техника в отделениях'</h3>
+            <h3> Загрузите EXEL файл в формате .XLSX из СФОРМИРОВАННОГО отчета 1С - 'Техника в отделениях'</h3>
             <label class="btn btn-primary btn-block logout-account">
                 <input type="file" name="file">
             </label>
@@ -38,6 +38,7 @@
     <div>
         <form method="POST" th:action="@{/uploadFileDep}" enctype="multipart/form-data">
             <h2>Список отделений от - 20 ДЕКАБРЯ 2022г.</h2>
+            <h2>Необходимо обновить, если список УСТАРЕЛ!</h2>
             <h3> Для обновления информации о действующих отделениях, Загрузите EXEL файл в формате .XLSX - 'Наши отделения'</h3>
             <label class="btn btn-primary btn-block logout-account">
                 <input type="file" name="file2">

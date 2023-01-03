@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "clients")
-public class ClientsDB implements Comparable<ClientsDB>{
+public class ClientsDB implements Comparable<ClientsDB> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -31,7 +31,7 @@ public class ClientsDB implements Comparable<ClientsDB>{
     @Column(name = "device")
     private String device;
     @Column(name = "price")
-    private Double priceToRepair;
+    private Integer priceToRepair;
     @Column(name = "phoneNumberOne")
     private Long phoneNumberOne;
     @Column(name = "phoneNumberTwo")
@@ -50,7 +50,7 @@ public class ClientsDB implements Comparable<ClientsDB>{
     public ClientsDB() {
     }
 
-    public ClientsDB(String department, Integer ticketNumber, String firstName, String secondName, String thirdName, String device, Double priceToRepair, Long phoneNumberOne, Long phoneNumberTwo, Employee owner ) {
+    public ClientsDB(String department, Integer ticketNumber, String firstName, String secondName, String thirdName, String device, Integer priceToRepair, Long phoneNumberOne, Long phoneNumberTwo, Employee owner) {
         this.department = department;
         this.ticketNumber = ticketNumber;
         this.firstName = firstName;
@@ -139,11 +139,11 @@ public class ClientsDB implements Comparable<ClientsDB>{
         this.device = device;
     }
 
-    public Double getPriceToRepair() {
+    public Integer getPriceToRepair() {
         return priceToRepair;
     }
 
-    public void setPriceToRepair(Double priceToRepair) {
+    public void setPriceToRepair(Integer priceToRepair) {
         this.priceToRepair = priceToRepair;
     }
 
@@ -170,6 +170,7 @@ public class ClientsDB implements Comparable<ClientsDB>{
     public void setMassage(String massage) {
         this.massage = massage;
     }
+
     public int compareTo(ClientsDB o) {
         if (this.department.compareTo(o.getDepartment()) == 0) {
             return ticketNumber.compareTo(o.ticketNumber);

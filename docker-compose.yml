@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    container_name: 'mydb'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Markelov
+      MYSQL_USER: nicomuser
+      MYSQL_PASSWORD: nicomuser
+      MYSQL_DB: db_nicom
+    volumes:
+      - data:/var/lib/mysql
+  app:
+    build: ./
+    container_name: 'nicom-app'
+    ports:
+      - "8080:8080"
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    ports:
+      - '8081:80'
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+#    depends_on:
+#      - db
+volumes:
+  data:

@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/css/**",
 //                "/fonts/**",
 //                "/images/**",
-                "/auth/login.html"
+                "/auth/login.ht ml"
         );
     }
 

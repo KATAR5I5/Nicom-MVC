@@ -72,8 +72,8 @@ public class Device implements Comparable<Device> {
         return fullpriceToRepair;
     }
 
-    public Double getPriceToRepair() {
-        return priceToRepair;
+    public Integer getPriceToRepair() {
+        return (int)(double)priceToRepair;
     }
 
     public String getDepartmentHasDevice() {

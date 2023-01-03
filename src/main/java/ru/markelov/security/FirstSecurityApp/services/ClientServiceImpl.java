@@ -39,11 +39,23 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<ClientsDB> getClientsWithRepair() {
-        List<ClientsDB> clientsWithRepair = clientsDAO.getAllClientsDBInfo(authEmployee().getId()).stream()
+       int employeeId = authEmployee().getId();
+        List<ClientsDB> clientsWithRepair = clientsDAO.getAllClientsDBInfo(employeeId)
+                .stream()
                 .filter(e -> e.getPriceToRepair() > 1)
-                .sorted()
+                .sorted((e1,e2)->e2.getPriceToRepair().compareTo(e1.getPriceToRepair()))
                 .collect(Collectors.toList());
         return clientsWithRepair;
+    }
+    @Override
+    public List<ClientsDB> getClientsWithOutRepair() {
+       int employeeId = authEmployee().getId();
+        List<ClientsDB> clientsWithOutRepair = clientsDAO.getAllClientsDBInfo(employeeId)
+                .stream()
+                .filter(e -> e.getPriceToRepair() < 1)
+                .sorted()
+                .collect(Collectors.toList());
+        return clientsWithOutRepair;
     }
 
     @Override
@@ -104,15 +116,6 @@ public class ClientServiceImpl implements ClientService {
 
     }
 
-    @Override
-    public List<ClientsDB> getClientsWithOutRepair() {
-        List<ClientsDB> clientsWithOutRepair = clientsDAO.getAllClientsDBInfo(authEmployee().getId())
-                .stream()
-                .filter(e -> e.getPriceToRepair() < 1)
-                .sorted()
-                .collect(Collectors.toList());
-        return clientsWithOutRepair;
-    }
 
     @Override
     public void clearDataBase() {

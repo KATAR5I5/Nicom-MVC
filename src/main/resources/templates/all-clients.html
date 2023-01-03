@@ -42,9 +42,9 @@
                 <th>Имя</th>
                 <th>Отчество</th>
                 <th>Устройство</th>
-                <th>Сумма к оплате</th>
-                <th> Телефон 2</th>
-                <th>Телефон 1</th>
+                <th>Сумма к оплате, руб</th>
+                <th>№ Телефона 2</th>
+                <th>№ Телефона 1</th>
                 <th>Сообщение</th>
                 <th>Дата отправления сообщения</th>
                 <th>Статус</th>
@@ -55,8 +55,8 @@
             <tr th:each="client : ${clientsWithRepair}">
                 <td th:text="${client.department}"/>
                 <td><span th:text="${client.ticketNumber}"/></td>
-                <td><span th:text="${client.firstName}"/></td>
                 <td><span th:text="${client.secondName}"/></td>
+                <td><b th:text="${client.firstName}"/></td>
                 <td><span th:text="${client.thirdName}"/></td>
                 <td><span th:text="${client.device}"/></td>
                 <td><span th:text="${client.priceToRepair}"/></td>
@@ -112,9 +112,9 @@
             <th>Имя</th>
             <th>Отчество</th>
             <th>Устройство</th>
-            <th>Сумма к оплате</th>
-            <th> Телефон 2</th>
-            <th>Телефон 1</th>
+            <th>Сумма к оплате, руб</th>
+            <th>№ Телефона 2</th>
+            <th>№ Телефона 1</th>
             <th>Сообщение</th>
             <th>Дата отправления сообщения</th>
             <th>Статус</th>
@@ -124,8 +124,8 @@
 
             <td th:text="${client.department}"/>
             <td><span th:text="${client.ticketNumber}"/></td>
-            <td><span th:text="${client.firstName}"/></td>
             <td><span th:text="${client.secondName}"/></td>
+            <td><b th:text="${client.firstName}"/></td>
             <td><span th:text="${client.thirdName}"/></td>
             <td><span th:text="${client.device}"/></td>
             <td><span th:text="${client.priceToRepair}"/></td>
