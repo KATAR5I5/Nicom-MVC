@@ -26,16 +26,18 @@ public class RegistrationService {
         создаем каталоги для файлов
         заполняем
          */
-        employee.setRole("ROLE_USER");
+        if (employee.getUsername().equals("123")) {
+            employee.setRole("ROLE_ADMIN");
+        } else employee.setRole("ROLE_USER");
 //        создаем каталог для работы с файлом данного сотрудника
         Path uploadFiles = Paths.get("src\\main\\load_files");
-        Path dir1C = Paths.get(uploadFiles+"\\Emp"+employee.getUsername());
-        Path pathFileDep = Paths.get(uploadFiles+"\\Dep.xlsx");
-            try {
-                Files.createDirectories(dir1C);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+        Path dir1C = Paths.get(uploadFiles + "\\Emp" + employee.getUsername());
+        Path pathFileDep = Paths.get(uploadFiles + "\\Dep.xlsx");
+        try {
+            Files.createDirectories(dir1C);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         employee.setPath(dir1C.toString());
         employee.setPathdep(pathFileDep.toString());

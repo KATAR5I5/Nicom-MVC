@@ -28,9 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin","/employee").hasRole("ADMIN")
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
-                .antMatchers("/resources/**","/css/**","/").permitAll()
+                .antMatchers("/resources/**","/css/**").permitAll()
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
                 .formLogin().loginPage("/auth/login")
@@ -50,16 +50,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationManagerBuilder.userDetailsService(employeeDetailService);
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring().antMatchers(
-                "/resources/**",
-                "/css/**",
-//                "/fonts/**",
-//                "/images/**",
-                "/auth/login.ht ml"
-        );
-    }
+//    @Override
+//    public void configure(WebSecurity web) {
+//        web.ignoring().antMatchers(
+//                "/resources/**",
+//                "/css/**",
+////                "/fonts/**",
+////                "/images/**",
+//                "/auth/login.html"
+//        );
+//    }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {

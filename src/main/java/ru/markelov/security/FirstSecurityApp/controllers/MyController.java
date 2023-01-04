@@ -131,5 +131,9 @@ public class MyController {
         return "redirect:/currentDB";
     }
 
+    @GetMapping("/admin")
+    public String adminPAge(){
+        return "admin";
+    }
 
 }
