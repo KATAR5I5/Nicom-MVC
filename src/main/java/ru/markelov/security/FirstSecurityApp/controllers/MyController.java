@@ -29,16 +29,14 @@ public class MyController {
 
     @GetMapping("/")
     public String index(Model model) {
-//        Employee emp = ((EmployeeDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmployee();
-//        model.addAttribute("thisEmp", emp);
-        List <String> currentDepartmentAttributes = new ArrayList<>();
+        List<String> currentDepartmentAttributes = new ArrayList<>();
 
         model.addAttribute("currentDepartment", currentDepartmentAttributes);
         return "select-files";
     }
 
     @GetMapping("/generateReport1")
-    public String showAllClients() {
+    public String showAllClients(@ModelAttribute ("listfull") String list) {
         /*
         - создаем список клиентов из файлов
         - получаем список из базы
@@ -47,18 +45,13 @@ public class MyController {
         - заполняем базу из нового списка
 
          */
-//        System.out.println(emp);
+        System.out.println(list);
         Path path1C = clientService.verify1CFile();
         Path pathDepartment = clientService.verifyDepartmentsFile();
         List<ClientsDB> newClientList = clientService
                 .createListDevicesInDepartment(path1C, pathDepartment);
-        System.out.println("ok1");
-        System.out.println(newClientList);
         List<ClientsDB> oldClientList = clientService.getAllClients(authEmployee().getId());
-        System.out.println("ok2");
-        System.out.println(oldClientList);
         clientService.clearDataBase();
-        System.out.println("ok3");
 // Обновляет новый список
         clientService.updateAllClientsInfo(oldClientList, newClientList);
         System.out.println(newClientList);
@@ -98,16 +91,11 @@ public class MyController {
         return "redirect:/";
     }
 
-    @PostMapping(value = "/whatsAppWebSend", produces = "text/plain;charset=UTF-8")
+    @PostMapping("/whatsAppWebSend")
     public String sendWhatsAppWebMessage(@RequestParam("clientDbID") int id, @RequestParam("clientTel") Long tel, Model model) {
-
         ClientsDB clientsDB = clientService.getClientDB(id);
-//        URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8);
-
-//        urlWhatsAppWeb.append(tel).append("&text=").append(clientsDB.getMassage());
         StringBuilder urlWhatsAppWebSend = new StringBuilder("https://web.whatsapp.com/send?phone=");
         urlWhatsAppWebSend.append(tel).append("&text=").append(URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8));
-
         clientService.updateStatusAndDateMessage(clientsDB);
         return "redirect:" + urlWhatsAppWebSend;
     }
@@ -117,14 +105,12 @@ public class MyController {
         ClientsDB clientsDB = clientService.getClientDB(id);
         StringBuilder uriWhatsAppSend = new StringBuilder("https://api.whatsapp.com/send?phone=");
         uriWhatsAppSend.append(tel).append("&text=").append(URLEncoder.encode(clientsDB.getMassage(), StandardCharsets.UTF_8));
-
-//        String uriWhatsAppSend = "https://api.whatsapp.com/send?phone=" + tel + "&text=" + clientsDB.getMassage();
         clientService.updateStatusAndDateMessage(clientsDB);
         return "redirect:" + uriWhatsAppSend;
     }
 
     @GetMapping("/remove")
-    public String removeClientDB(@RequestParam("clientDbID") int id, Model model) {
+    public String removeClientDB(@RequestParam("clientDbID") int id) {
         ClientsDB clientsDB = clientService.getClientDB(id);
 
         clientService.deleteClient(clientsDB);
@@ -132,7 +118,7 @@ public class MyController {
     }
 
     @GetMapping("/admin")
-    public String adminPAge(){
+    public String adminPAge() {
         return "admin";
     }
 

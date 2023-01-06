@@ -1,5 +1,6 @@
 package ru.markelov.security.FirstSecurityApp.aspect.logic;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -19,10 +20,10 @@ public class CreateNicomObjects implements Runnable {
     private List<Device> devices;
     private Map<Device, ClientNicom> mapDevice;
     private Path path;
+    private boolean listFullDevice;
 
     public CreateNicomObjects(Path path) throws IOException {
         this.path = path;
-//        create();
     }
 
     @Override
@@ -61,16 +62,28 @@ public class CreateNicomObjects implements Runnable {
         int rowStart = 7;
         int rowEnd = myExcelSheet.getLastRowNum() - 1;
         int columnStart = 0;
+        int columnTicket = 7;
+
+            XSSFRow rowTemp = myExcelSheet.getRow(rowStart);
+            XSSFCell cell = rowTemp.getCell(columnTicket);
+            try {
+                cell.getStringCellValue();
+            } catch (IllegalStateException e){
+                columnTicket = 6;
+            }
 //        System.out.println("Проверь стартовые и конечный ячейки by default: rowStart =" + rowStart + " rowEnd = " + rowEnd);
         for (; rowStart < rowEnd; rowStart++) {
             XSSFRow row = myExcelSheet.getRow(rowStart);
-            String cell = String.valueOf(row.getCell(columnStart + 7));
+            String cellStart = String.valueOf(row.getCell(columnTicket));
+//            if (cellStart == null) {
+//                columnTicket = 6;
+//            }
 
-            if (cell.equals("") || cell == null || cell.isEmpty() || cell.equals("#NULL!")) {
+            if (cellStart.equals("") || cellStart == null || cellStart.isEmpty() || cellStart.equals("#NULL!")) {
             } else {
 //                Device cell
                 departmentHasDevice = String.valueOf(row.getCell(columnStart));
-                fullTicketNumber = String.valueOf(row.getCell(columnStart + 7)); //H
+                fullTicketNumber = String.valueOf(row.getCell(columnTicket)); //H
                 model = String.valueOf(row.getCell(columnStart + 8));
                 device = String.valueOf(row.getCell(columnStart + 9));
                 fullPrice = String.valueOf(row.getCell(columnStart + 12));

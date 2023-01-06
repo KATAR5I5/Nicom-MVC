@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns: th="http://www.thymeleaf.org">
+<html lang="en" xmlns: th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <link media="all" rel="stylesheet" href="/static/css/select-files.css"
       th:href="@{/css/select-files.css}" type="text/css"/>
 <meta charset="UTF-8">
@@ -26,6 +26,10 @@
     <div>
         <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
             <h3> Загрузите EXEL файл в формате .XLSX из СФОРМИРОВАННОГО отчета 1С - 'Техника в отделениях'</h3>
+    <div>
+        <input type="checkbox" name="listfull" th:checked="${listfull}">Полный лист</input>
+
+    </div>
             <label class="btn btn-primary btn-block logout-account">
                 <input type="file" name="file">
             </label>

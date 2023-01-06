@@ -45,7 +45,7 @@
         <!--    начало Таблицы Устройства в отделениях С РЕМОНТОМ-->
         <h2 class="text-center">Устройства в отделениях С РЕМОНТОМ (сортировка по сумме).</h2>
     </div>
-    <div>
+
         <br>
         <!--Шапка таблицы-->
         <table>
@@ -65,8 +65,9 @@
                 <th>Удалить из списка</th>
             </tr>
 
-            <!--        Значения в таблице-->
+            <!--        Значения в таблице с ремонтом-->
             <tr th:each="client : ${clientsWithRepair}">
+
                 <td th:text="${client.department}"/>
                 <td><span th:text="${client.ticketNumber}"/></td>
                 <td><span th:text="${client.secondName}"/></td>
@@ -101,19 +102,15 @@
                 </td>
                 <!--            Колонка сообщение-->
 
-                <td><span th:text="${client.massage}"/></td>
+                <td><span th:text="${client.massage}"/>
                 <td><span th:text="${client.localDate}"/></td>
                 <td><span th:text="${client.statusMessage}"/></td>
-
-                <!--            Колонка удалить запись-->
                 <td>
                     <button class="btn btn-primary btn-block delete-button"
                             th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ
                     </button>
                 </td>
-            </tr>
         </table>
-    </div>
     <br>
     <div align="center">
         <h2>Устройства в отделениях БЕЗ РЕМОНТА (сортировка по отделениям).</h2>
@@ -135,6 +132,7 @@
             <th>Статус</th>
             <th>Удалить из списка</th>
         </tr>
+        <!--        Значения в таблице без ремонта-->
         <tr th:each="client : ${clientsWithOutRepair}">
 
             <td th:text="${client.department}"/>

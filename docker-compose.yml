@@ -15,10 +15,11 @@ services:
   app:
     build: .
     container_name: 'nicom-app'
+    restart: always
     ports:
       - "8080:8080"
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin
     container_name: pma
     links:
       - db
