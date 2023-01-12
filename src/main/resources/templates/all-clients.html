@@ -16,12 +16,13 @@
         </a>
     </div>
     <div>
-        <button class="btn btn-primary btn-block registration-account"
-                th:onclick="|window.location.href='@{/clearClients}'|">Очистить базу
-        </button>
-        <a>&emsp;</a>
+
         <a th:href="@{/}">
             <button class="btn btn-primary btn-block create-account" type="button">Назад, к выбору файла</button>
+        </a>
+        <span>&emsp;</span>
+        <a th:href="@{/departments}">
+            <button class="btn btn-primary btn-block registration-account" type="button">Наши отделения</button>
         </a>
     </div>
     <!--    <div align="center">-->
@@ -104,17 +105,20 @@
             </td>
             <!--            Колонка сообщение-->
             <td><span th:text="${client.massage}"/>
-<!--                <p>-->
-<!--                    <button class="btn btn-primary btn-block delete-button"-->
-<!--                            th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">Редактировать-->
-<!--                    </button>-->
-<!--                </p>-->
+                <!--                <p>-->
+                <!--                    <button class="btn btn-primary btn-block delete-button"-->
+                <!--                            th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">Редактировать-->
+                <!--                    </button>-->
+                <!--                </p>-->
             <td><span th:text="${client.localDate}"/></td>
             <td><span th:text="${client.statusMessage}"/></td>
             <td>
-                <button class="btn btn-primary btn-block delete-button"
-                        th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ
-                </button>
+                <form th:action="@{/remove(clientDbID=${client.id})}"
+                      method="post">
+                    <button class="btn btn-primary btn-block delete-button"
+                            type="submit">УДАЛИТЬ
+                    </button>
+                </form>
             </td>
     </table>
     <br>
@@ -179,11 +183,17 @@
             <td><span th:text="${client.localDate}"/></td>
             <td><span th:text="${client.statusMessage}"/></td>
             <td>
-                <button class="btn btn-primary btn-block delete-button"
-                        th:onclick="|window.location.href='@{/remove(clientDbID=${client.id})}'|">УДАЛИТЬ
-                </button>
+                <form th:action="@{/remove(clientDbID=${client.id})}"
+                      method="post">
+                    <button class="btn btn-primary btn-block delete-button"
+                            type="submit">УДАЛИТЬ
+                    </button>
+                </form>
             </td>
     </table>
+    <a th:href="@{/clearClients}">
+        <button class="btn btn-primary btn-block registration-account">Очистить базу</button>
+    </a>
 </div>
 </body>
 </html>

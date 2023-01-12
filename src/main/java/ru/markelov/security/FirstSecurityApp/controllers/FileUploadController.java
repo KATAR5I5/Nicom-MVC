@@ -65,7 +65,7 @@ public class FileUploadController {
                 String s = "Загружено - " + file.getOriginalFilename();
                 model.addAttribute("dep", s);
 //                model.addAttribute("thisEmp",currentEmp);
-                return "select-files";
+                return "admin";
 
             } catch (Exception e) {
                 return "You failed to upload  => " + e.getMessage();

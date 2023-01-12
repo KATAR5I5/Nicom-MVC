@@ -2,6 +2,7 @@ package ru.markelov.security.FirstSecurityApp.controllers;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import ru.markelov.security.FirstSecurityApp.aspect.logic.CreateDepartmens;
 import ru.markelov.security.FirstSecurityApp.models.ClientsDB;
 import ru.markelov.security.FirstSecurityApp.models.Employee;
 import ru.markelov.security.FirstSecurityApp.security.EmployeeDetails;
@@ -29,14 +30,16 @@ public class MyController {
 
     @GetMapping("/")
     public String index(Model model) {
-        List<String> currentDepartmentAttributes = new ArrayList<>();
-
-        model.addAttribute("currentDepartment", currentDepartmentAttributes);
+//        List<String> currentDepartmentAttributes = new ArrayList<>();
+//        model.addAttribute("currentDepartment", currentDepartmentAttributes);
+        if(authEmployee().getUsername().equals("123")){
+            return "admin";
+        }
         return "select-files";
     }
 
     @GetMapping("/generateReport1")
-    public String showAllClients(@ModelAttribute ("listfull") String list) {
+    public String showAllClients(@ModelAttribute("listfull") String list) {
         /*
         - создаем список клиентов из файлов
         - получаем список из базы
@@ -59,7 +62,7 @@ public class MyController {
         return "redirect:/currentDB";
     }
 
-    @GetMapping("/currentDB")
+    @RequestMapping("/currentDB")
     public String showCurrentDB(Model model) {
     /*
      - Получение списков из базы
@@ -109,7 +112,7 @@ public class MyController {
         return "redirect:" + uriWhatsAppSend;
     }
 
-    @GetMapping("/remove")
+    @PostMapping("/remove")
     public String removeClientDB(@RequestParam("clientDbID") int id) {
         ClientsDB clientsDB = clientService.getClientDB(id);
 
@@ -121,5 +124,12 @@ public class MyController {
     public String adminPAge() {
         return "admin";
     }
+
+    @GetMapping("/departments")
+    public String departmentsList(Model model) {
+        model.addAttribute("allDepartment", new CreateDepartmens(clientService.verifyDepartmentsFile()).getDepartmentList());
+    return "departments";
+    }
+
 
 }

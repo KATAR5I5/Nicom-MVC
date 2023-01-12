@@ -60,11 +60,12 @@ public class CreateDepartmens {
                 String districtOfCity = row.getCell(cellStart).getStringCellValue();
                 String department = row.getCell(cellStart + 1).getStringCellValue().trim();
                 String metroStationTemp = row.getCell(cellStart + 2).getStringCellValue();
-                String metroStation = metroStationTemp.substring(0, metroStationTemp.indexOf("-") - 1);
+                String metroStation = metroStationTemp.substring(0, metroStationTemp.indexOf("-")).trim();
                 String timeWorkDay = row.getCell(cellStart + 3).getStringCellValue();
                 String timeWorkWeekend = row.getCell(cellStart + 4).getStringCellValue();
                 String addressDepartment = row.getCell(cellStart + 5).getStringCellValue();
                 String weyToDepartment = row.getCell(cellStart + 9).getStringCellValue();
+
                 Department dep = new Department(districtOfCity, department, metroStation, timeWorkDay, timeWorkWeekend, addressDepartment, weyToDepartment);
                 departmentMap.put(department, dep);
                 departmentList.add(dep);

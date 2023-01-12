@@ -38,13 +38,15 @@ public class RepairMessage {
         }
         if (actualDepartmentTickerList.contains(device.getDepartment())) {
             stringBuilderMessage
-                    .append("День добрый! Мы из Nicom-сервиса. ")
+                    .append("Квитанция №: ")
+                    .append(device.getFullTicketNumber())
+                    .append("\n День добрый! Мы из Nicom-сервиса. ")
                     .append(name)
                     .append("Ваш аппарат - ")
                     .append(deviceName)
                     .append(" - ГОТОВ. Оплатить при получении необходимо НАЛИЧНЫМИ - ")
                     .append(device.getPriceToRepair())
-                    .append("руб. Аппарат находится по адресу: метро - ")
+                    .append("руб.\n Аппарат находится по адресу: метро - ")
                     .append(departmentMap.get(device.getDepartment()).getMetroStation())
                     .append(". ")
                     .append(departmentMap.get(device.getDepartment()).getAddressDepartment())
@@ -52,38 +54,35 @@ public class RepairMessage {
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkDay())
                     .append(". В выходные - ")
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkWeekend())
-                    .append(".\n")
-                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ. ")
-                    .append("Квитанция №: ")
-                    .append(device.getFullTicketNumber());
+                    .append(".\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ.");
             return stringBuilderMessage.toString();
 
         } else if (device.getDepartment().equals("Б4")) {
             stringBuilderMessage
-                    .append("День добрый! Мы из Сервис-центра. ")
+                    .append("Квитанция №: ")
+                    .append(device.getFullTicketNumber())
+                    .append("\n День добрый! Мы из Сервис-центра. ")
                     .append(name)
                     .append(" Ваш аппарат - ")
                     .append(deviceName)
                     .append(" - ГОТОВ. Оплатить при получении  необходимо - ")
                     .append(device.getPriceToRepair())
-                    .append("руб. Аппарат находится по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы в будни - 10-20ч. В выходные - 10-18ч.")
-                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
-                    .append("Квитанция №: ")
-                    .append(device.getFullTicketNumber());
+                    .append("руб.\n Аппарат находится по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы в будни - 10-20ч. В выходные - 10-18ч.")
+                    .append("\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ");
 
             return stringBuilderMessage.toString();
         }
         return stringBuilderMessage
-                .append("День добрый! Мы из Nicom-сервиса. ")
+                .append("Квитанция №: ")
+                .append(device.getFullTicketNumber())
+                .append("\n День добрый! Мы из Nicom-сервиса. ")
                 .append(name)
                 .append(" Ваш аппарат - ")
                 .append(deviceName)
                 .append(" - ГОТОВ. Оплатить при получении  необходимо НАЛИЧНЫМИ - ")
                 .append(device.getPriceToRepair())
-                .append("руб. Аппарат в данный момент находится на пункте выдачи.")
-                .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
-                .append("Квитанция №: ")
-                .append(device.getFullTicketNumber())
+                .append("руб.\n О МЕСТОНАХОЖДЕНИИ аппарата уточните по тел. 8495-545-06-08.")
+                .append("\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
                 .toString();
     }
 
@@ -96,11 +95,13 @@ public class RepairMessage {
         }
         if (actualDepartmentTickerList.contains(device.getDepartment())) {
             stringBuilderMessage
-                    .append("День добрый! Мы из Nicom-сервиса. ")
+                    .append("Квитанция №: ")
+                    .append(device.getFullTicketNumber())
+                    .append("\n День добрый! Мы из Nicom-сервиса. ")
                     .append(name)
                     .append(" Ваш аппарат - ")
                     .append(deviceName)
-                    .append(" - в данный момент находится на пункте выдачи по адресу: метро - ")
+                    .append(" - БЕЗ РЕМОНТА. В данный момент находится на пункте выдачи по адресу: метро - ")
                     .append(departmentMap.get(device.getDepartment()).getMetroStation())
                     .append(". ")
                     .append(departmentMap.get(device.getDepartment()).getAddressDepartment())
@@ -108,37 +109,34 @@ public class RepairMessage {
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkDay())
                     .append(". В выходные - ")
                     .append(departmentMap.get(device.getDepartment()).getTimeWorkWeekend())
-                    .append(".\n")
-                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
-                    .append("Квитанция №: ")
-                    .append(device.getFullTicketNumber())
+                    .append(".\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
             ;
 
 
             return stringBuilderMessage.toString();
         } else if (device.getDepartment().toUpperCase().equals("Б4")) {
             stringBuilderMessage
-                    .append("День добрый! Мы из Сервис-центра. ")
+                    .append("Квитанция №: ")
+                    .append(device.getFullTicketNumber())
+                    .append("\n День добрый! Мы из Сервис-центра. ")
                     .append(name)
                     .append(" Ваш аппарат - ")
                     .append(deviceName)
-                    .append(" в данный момент находится по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы в будни - 10-20ч. В выходные - 10-18ч.")
-                    .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
-                    .append("Квитанция №: ")
-                    .append(device.getFullTicketNumber())
+                    .append(" - БЕЗ РЕМОНТА. В данный момент находится по адресу: г. Мытищи, ул.Борисовка, д.4. Время работы в будни - 10-20ч. В выходные - 10-18ч.")
+                    .append("\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
             ;
 
             return stringBuilderMessage.toString();
         }
         return stringBuilderMessage
-                .append("День добрый! Мы из Nicom-сервиса. ")
+                .append("Квитанция №: ")
+                .append(device.getFullTicketNumber())
+                .append("\n День добрый! Мы из Nicom-сервиса. ")
                 .append(name)
                 .append("Ваш аппарат - ")
                 .append(deviceName)
-                .append(" в данный момент находится на пункте выдачи.")
-                .append(" Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
-                .append("Квитанция №: ")
-                .append(device.getFullTicketNumber())
+                .append(" - БЕЗ РЕМОНТА. О МЕСТОНАХОЖДЕНИИ аппарата уточните по тел. 8495-545-06-08.")
+                .append("\n Устройство выдается СТРОГО по ОРИГИНАЛУ квитанции или по ПАСПОРТУ человека сдававшего в ремонт. ")
                 .toString();
     }
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns: th="http://www.thymeleaf.org">
+<link media="all" rel="stylesheet" href="/static/css/all-clients.css" th:href="@{/css/all-clients.css}"
+      type="text/css"/>
+<meta charset="UTF-8">
+<head>
+    <title>Отделения</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>Район</th>
+        <th>Тикер</th>
+        <th>Метро</th>
+        <th>Адрес</th>
+        <th>Будни</th>
+        <th>Выходные</th>
+        <th>Как добраться</th>
+
+    </tr>
+    </thead>
+
+    <!--        Значения в таблице с ремонтом-->
+    <tr th:each="department : ${allDepartment}">
+
+        <td><span th:text="${department.districtOfCity}"/></td>
+        <td><b th:text="${department.department}"/></td>
+        <td><span th:text="${department.metroStation}"/></td>
+        <td><span th:text="${department.addressDepartment}"/></td>
+        <td><span th:text="${department.timeWorkDay}"/></td>
+        <td><span th:text="${department.timeWorkWeekend}"/></td>
+        <td><span th:text="${department.weyToDepartment}"/></td>
+
+    </tr>
+</table>
+
+</body>
+</html>
+
