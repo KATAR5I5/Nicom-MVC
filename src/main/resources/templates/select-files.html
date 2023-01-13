@@ -23,19 +23,28 @@
     <div>
         <form action="">
             <h2 class="text-center"><b th:text="${thisEmp.getEmployeeName()}"/>, для формирования сообщений необходимо
-                сохранить на компьютер отчет из 1С - "Техника в отделениях" в EXEL-файл формата .XLSX.</h2>
+                загрузить EXEL-файл формата .XLSX из отчета 1С - "Техника в отделении".</h2>
+            <h3> - в 1С перейти во вкладку "Техника в отделении"</h3>
+            <h3> - Нажать кнопку "Сформировать"</h3>
+            <h3> - Нажать кнопку (значок) - "с дискетой"</h3>
+            <h3> - Выбрать директорию для сохранения файла</h3>
+            <h3> - Выбрать "Тип файла" (Лист Exel2007-...(*xlsx)</h3>
+            <h3> - Нажать "Сохранить"</h3>
         </form>
     </div>
     <br>
     <div>
-        <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
-            <h3> Загрузите EXEL файл формата .XLSX из отчета 1С - 'Техника в отделениях'</h3>
+        <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data" th:object="${fileUp}">
+            <h2> Загрузите EXEL файл формата .XLSX из отчета 1С - 'Техника в отделениях'</h2>
             <label class="btn btn-primary btn-block logout-account">
-                <input type="file" name="file">
+                                <input type="file" name="file">
             </label>
             <span>&emsp;</span>
             <button class="btn btn-primary btn-block registration-account" type="submit">Сформировать</button>
-            <a th:text="${file1C}"></a>
+            <!--            <a th:text="${file1C}"></a>-->
+<!--            <div style="color:red" th:if="${#fields.hasErrors('file')}" th:errors="${fileUp}">-->
+<!--                password error-->
+<!--            </div>-->
         </form>
     </div>
     <br>
