@@ -38,11 +38,11 @@ public class FileUploadController {
                     System.out.println("delete file");
                 }
                 Files.write(Path_1C, bytes);
-                String s = "Загружено - " + file.getOriginalFilename();
-                model.addAttribute("file1C", s);
+//                String s = "Загружено - " + file.getOriginalFilename();
+//                model.addAttribute("file1C", s);
 //                model.addAttribute("thisEmp",currentEmp);
 //                return "redirect:/uploadStatus";
-                return "select-files";
+                return "redirect:/generateReport1";
             } catch (Exception e) {
                 return "You failed to upload  => " + e.getMessage();
             }

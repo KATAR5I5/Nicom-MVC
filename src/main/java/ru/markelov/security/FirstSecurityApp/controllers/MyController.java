@@ -38,7 +38,7 @@ public class MyController {
         return "select-files";
     }
 
-    @GetMapping("/generateReport1")
+    @RequestMapping("/generateReport1")
     public String showAllClients(@ModelAttribute("listfull") String list) {
         /*
         - создаем список клиентов из файлов

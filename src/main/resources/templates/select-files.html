@@ -14,33 +14,33 @@
         <button class="btn btn-primary btn-block logout-account" type="button">Выход Мастер <b
                 th:text="${thisEmp.getUsername()}"/></button>
     </a>
+    <span>&emsp;</span>
+    <a th:href="@{/departments}" target="_blank">
+        <button class="btn btn-primary btn-block create-account" type="button">Действующие отделения</button>
+    </a>
+
     <br> <br>
     <div>
         <form action="">
-            <h2 class="text-center"><b th:text="${thisEmp.getEmployeeName()}"/>, укажите путь к файлам "1С -Техника в
-                отделениях" и "Наши отделения" для формирования сообщения и
-                оповещения клиентов.</h2>
+            <h2 class="text-center"><b th:text="${thisEmp.getEmployeeName()}"/>, для формирования сообщений необходимо
+                сохранить на компьютер отчет из 1С - "Техника в отделениях" в EXEL-файл формата .XLSX.</h2>
         </form>
     </div>
     <br>
     <div>
         <form method="POST" th:action="@{/uploadFile1C}" enctype="multipart/form-data">
-            <h3> Загрузите EXEL файл в формате .XLSX из СФОРМИРОВАННОГО отчета 1С - 'Техника в отделениях'</h3>
-               <label class="btn btn-primary btn-block logout-account">
+            <h3> Загрузите EXEL файл формата .XLSX из отчета 1С - 'Техника в отделениях'</h3>
+            <label class="btn btn-primary btn-block logout-account">
                 <input type="file" name="file">
             </label>
             <span>&emsp;</span>
-            <button class="btn btn-primary btn-block create-account" type="submit">Загрузить 1С</button>
+            <button class="btn btn-primary btn-block registration-account" type="submit">Сформировать</button>
             <a th:text="${file1C}"></a>
         </form>
     </div>
     <br>
 
     <div>
-        <a th:href="@{/generateReport1}">
-            <button class="btn btn-primary btn-block registration-account" type="button">Сформировать</button>
-        </a>
-        <span>&emsp;</span>
         <a th:href="@{/currentDB}">
             <button class="btn btn-primary btn-block create-account" type="button">Открыть действующую</button>
         </a>

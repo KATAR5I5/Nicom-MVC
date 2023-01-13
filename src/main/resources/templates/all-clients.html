@@ -21,8 +21,8 @@
             <button class="btn btn-primary btn-block create-account" type="button">Назад, к выбору файла</button>
         </a>
         <span>&emsp;</span>
-        <a th:href="@{/departments}">
-            <button class="btn btn-primary btn-block registration-account" type="button">Наши отделения</button>
+        <a th:href="@{/departments}" target="_blank">
+            <button class="btn btn-primary btn-block registration-account" type="button" >Действующие отделения</button>
         </a>
     </div>
     <!--    <div align="center">-->
@@ -49,7 +49,7 @@
 
     <br>
     <!--Шапка таблицы-->
-    <table>
+    <table class="table">
         <thead>
         <tr>
             <th>Отделение</th>
@@ -69,6 +69,8 @@
         </thead>
 
         <!--        Значения в таблице с ремонтом-->
+        <tbody>
+
         <tr th:each="client : ${clientsWithRepair}">
 
             <td th:text="${client.department}"/>
@@ -120,13 +122,15 @@
                     </button>
                 </form>
             </td>
+        </tbody>
     </table>
     <br>
     <div align="center">
         <h2>Устройства в отделениях БЕЗ РЕМОНТА (сортировка по отделениям).</h2>
     </div>
     <br><br>
-    <table>
+    <table class="table">
+        <thead>
         <tr>
             <th>Отделение</th>
             <th>№ квитанции</th>
@@ -142,7 +146,9 @@
             <th>Статус</th>
             <th>Удалить из списка</th>
         </tr>
+        </thead>
         <!--        Значения в таблице без ремонта-->
+        <tbody>
         <tr th:each="client : ${clientsWithOutRepair}">
 
             <td th:text="${client.department}"/>
@@ -190,6 +196,7 @@
                     </button>
                 </form>
             </td>
+        </tbody>
     </table>
     <a th:href="@{/clearClients}">
         <button class="btn btn-primary btn-block registration-account">Очистить базу</button>
