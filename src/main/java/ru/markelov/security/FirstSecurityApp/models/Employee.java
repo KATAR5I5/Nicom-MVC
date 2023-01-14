@@ -2,6 +2,8 @@ package ru.markelov.security.FirstSecurityApp.models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
@@ -21,7 +23,9 @@ public class Employee {
     @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
     private List<ClientsDB> clientsDBList;
 
-    @Size(min = 3, max = 3, message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
+//    @Size(min = 3, max = 3, message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
+    @Min(value = 100, message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
+    @Max(value = 399,message = "№ мастера - 3х значное число. 1я цифра - мастерская (1-Мурановская, 2-Студеный, 3-Сокол)")
     @NotEmpty(message = "№ мастера не должен быть пустым")
     @Column(name = "username")
     private String username;
